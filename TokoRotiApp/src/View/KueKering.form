@@ -260,7 +260,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="34" green="73" red="9e" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Rp. 20.0000"/>
+                    <Property name="text" type="java.lang.String" value="Rp. 40.0000"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="jSpinner4">
@@ -366,7 +366,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Bolu Meses"/>
+                    <Property name="text" type="java.lang.String" value="Cookies"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel70">
@@ -474,7 +474,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Bolu Meses Starberry"/>
+                    <Property name="text" type="java.lang.String" value="Putri Salju"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel74">
@@ -482,7 +482,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="34" green="73" red="9e" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Rp. 20.0000"/>
+                    <Property name="text" type="java.lang.String" value="Rp. 30.0000"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="jSpinner15">
@@ -582,7 +582,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Bolu Matcah Straberry"/>
+                    <Property name="text" type="java.lang.String" value="Kue Mawar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel78">
@@ -590,7 +590,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="34" green="73" red="9e" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Rp. 27.0000"/>
+                    <Property name="text" type="java.lang.String" value="Rp. 30.000"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JSpinner" name="jSpinner16">

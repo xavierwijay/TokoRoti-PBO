@@ -107,7 +107,7 @@ public class KueKering extends javax.swing.JFrame {
         jLabel64.setText("Nastar Selai Keju");
 
         jLabel65.setForeground(new java.awt.Color(158, 115, 52));
-        jLabel65.setText("Rp. 20.0000");
+        jLabel65.setText("Rp. 40.0000");
 
         jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel66.setText("Jumlah");
@@ -167,7 +167,7 @@ public class KueKering extends javax.swing.JFrame {
         jPanel29.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel69.setText("Bolu Meses");
+        jLabel69.setText("Cookies");
 
         jLabel70.setForeground(new java.awt.Color(158, 115, 52));
         jLabel70.setText("Rp. 15.0000");
@@ -223,10 +223,10 @@ public class KueKering extends javax.swing.JFrame {
         jPanel30.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel73.setText("Bolu Meses Starberry");
+        jLabel73.setText("Putri Salju");
 
         jLabel74.setForeground(new java.awt.Color(158, 115, 52));
-        jLabel74.setText("Rp. 20.0000");
+        jLabel74.setText("Rp. 30.0000");
 
         jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel75.setText("Jumlah");
@@ -282,10 +282,10 @@ public class KueKering extends javax.swing.JFrame {
         jPanel31.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel77.setText("Bolu Matcah Straberry");
+        jLabel77.setText("Kue Mawar");
 
         jLabel78.setForeground(new java.awt.Color(158, 115, 52));
-        jLabel78.setText("Rp. 27.0000");
+        jLabel78.setText("Rp. 30.000");
 
         jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel79.setText("Jumlah");
