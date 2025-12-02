@@ -461,6 +461,11 @@ public class MenuRotiAdmin extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Roti");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(175, 139, 87));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -557,13 +562,16 @@ public class MenuRotiAdmin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        EditMenuKueUlangTahunAdmin ema = new EditMenuAdmin();
-        ema.setVisible(true);
+        MenuKueUlangTahunAdmin mkta = new MenuKueUlangTahunAdmin();
+        mkta.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        MenuBoluAdmin mba = new MenuBoluAdmin();
+        mba.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -595,6 +603,13 @@ public class MenuRotiAdmin extends javax.swing.JFrame {
     private void bttnEdit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEdit3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bttnEdit3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        MenuRotiAdmin mra = new MenuRotiAdmin();
+        mra.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
