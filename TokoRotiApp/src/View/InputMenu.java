@@ -275,7 +275,7 @@ public class InputMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 1090, Short.MAX_VALUE))
         );
 
         pack();
@@ -291,7 +291,6 @@ public class InputMenu extends javax.swing.JFrame {
     private void bttnGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnGambarActionPerformed
         // TODO add your handling code here:
         JFileChooser jc = new JFileChooser(new File(System.getProperty("user.home"), "Pictures"));
-    jc.setDialogTitle("Pilih Gambar Produk");
     jc.setAcceptAllFileFilterUsed(false);
     jc.addChoosableFileFilter(
         new FileNameExtensionFilter("Gambar (JPG, JPEG, PNG)", "jpg", "jpeg", "png")
@@ -359,7 +358,6 @@ public class InputMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable1;

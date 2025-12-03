@@ -128,7 +128,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jButton12.setBackground(new java.awt.Color(167, 132, 103));
         jButton12.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jButton12.setForeground(new java.awt.Color(255, 255, 255));
-        jButton12.setText("TAMBAH ADMIN");
+        jButton12.setText("TAMBAH KASIR");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -204,6 +204,9 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        MenuKueUlangTahunAdmin mkuta = new MenuKueUlangTahunAdmin();    
+        mkuta.setVisible(true);
+    this.dispose(); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -232,6 +235,9 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
+        TambahKasir tk = new TambahKasir();    
+        tk.setVisible(true);
+    this.dispose(); 
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
