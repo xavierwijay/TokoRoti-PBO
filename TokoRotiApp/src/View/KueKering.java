@@ -31,6 +31,7 @@ public class KueKering extends javax.swing.JFrame {
         jPanel25 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        jButton36 = new javax.swing.JButton();
         txtJudulMenu = new javax.swing.JLabel();
         txtJudulKecilMenu = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
@@ -73,24 +74,40 @@ public class KueKering extends javax.swing.JFrame {
 
         jPanel25.setBackground(new java.awt.Color(239, 231, 221));
 
-        jPanel26.setBackground(new java.awt.Color(218, 194, 162));
+        jPanel26.setBackground(new java.awt.Color(209, 186, 155));
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/logo.png"))); // NOI18N
+
+        jButton36.setBackground(new java.awt.Color(79, 111, 128));
+        jButton36.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton36.setForeground(new java.awt.Color(255, 255, 255));
+        jButton36.setText("Keluar");
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
-                .addContainerGap(913, Short.MAX_VALUE)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGap(59, 59, 59)
                 .addComponent(jLabel22)
-                .addGap(51, 51, 51))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 780, Short.MAX_VALUE)
+                .addComponent(jButton36)
+                .addGap(49, 49, 49))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         txtJudulMenu.setFont(new java.awt.Font("Segoe UI Black", 1, 34)); // NOI18N
@@ -99,7 +116,7 @@ public class KueKering extends javax.swing.JFrame {
         txtJudulKecilMenu.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtJudulKecilMenu.setText("Temukan Roti Pilihan Anda");
 
-        jPanel27.setBackground(new java.awt.Color(193, 170, 137));
+        jPanel27.setBackground(new java.awt.Color(209, 186, 155));
 
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -160,7 +177,7 @@ public class KueKering extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel68.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel68.setForeground(new java.awt.Color(255, 255, 255));
         jLabel68.setText("Kue Kering");
 
@@ -369,7 +386,7 @@ public class KueKering extends javax.swing.JFrame {
                     .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel32.setBackground(new java.awt.Color(210, 206, 206));
@@ -481,7 +498,7 @@ public class KueKering extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 713, Short.MAX_VALUE)
+            .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -498,6 +515,10 @@ public class KueKering extends javax.swing.JFrame {
     private void bActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bActionPerformed
+
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton36ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -533,6 +554,7 @@ public class KueKering extends javax.swing.JFrame {
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
+    private javax.swing.JButton jButton36;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;

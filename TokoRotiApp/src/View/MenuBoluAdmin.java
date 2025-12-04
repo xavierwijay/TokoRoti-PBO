@@ -31,6 +31,7 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
         jPanel25 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        jButton36 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
@@ -66,7 +67,6 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
         jLabel80 = new javax.swing.JLabel();
         bttnEdit3 = new javax.swing.JButton();
         bttnHapus3 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jPanel32 = new javax.swing.JPanel();
         jButton29 = new javax.swing.JButton();
         jButton30 = new javax.swing.JButton();
@@ -77,47 +77,65 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
 
         jPanel25.setBackground(new java.awt.Color(239, 231, 221));
 
-        jPanel26.setBackground(new java.awt.Color(218, 194, 162));
+        jPanel26.setBackground(new java.awt.Color(209, 186, 155));
 
         jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/logo.png"))); // NOI18N
+
+        jButton36.setBackground(new java.awt.Color(79, 111, 128));
+        jButton36.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton36.setForeground(new java.awt.Color(255, 255, 255));
+        jButton36.setText("Keluar");
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
         jPanel26.setLayout(jPanel26Layout);
         jPanel26Layout.setHorizontalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
-                .addContainerGap(913, Short.MAX_VALUE)
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
                 .addComponent(jLabel22)
-                .addGap(51, 51, 51))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 767, Short.MAX_VALUE)
+                .addComponent(jButton36)
+                .addGap(46, 46, 46))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel26Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel23.setFont(new java.awt.Font("Segoe UI Black", 1, 34)); // NOI18N
         jLabel23.setText("Hallo Admin");
 
-        jPanel27.setBackground(new java.awt.Color(193, 170, 137));
+        jPanel27.setBackground(new java.awt.Color(209, 186, 155));
 
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel64.setText("Bolu Keju");
 
+        jLabel65.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel65.setForeground(new java.awt.Color(158, 115, 52));
         jLabel65.setText("Rp. 20.0000");
 
-        jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel66.setText("Jumlah");
 
         jLabel67.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/bolu keju.png"))); // NOI18N
 
-        bttnEdit.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit.setText("EDIT");
+        bttnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit.setText("Edit");
         bttnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEditActionPerformed(evt);
@@ -126,7 +144,8 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
 
         bttnHapus.setBackground(new java.awt.Color(95, 156, 113));
         bttnHapus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnHapus.setText("HAPUS");
+        bttnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        bttnHapus.setText("Hapus");
         bttnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnHapusActionPerformed(evt);
@@ -143,19 +162,20 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jLabel67, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel28Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel66)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(bttnEdit)
+                        .addGap(18, 18, 18)
+                        .addComponent(bttnHapus))
+                    .addGroup(jPanel28Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel64)
-                            .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addComponent(jLabel66)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel65)
-                            .addGroup(jPanel28Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(bttnEdit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(bttnHapus)))))
+                            .addComponent(jLabel64))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel28Layout.setVerticalGroup(
@@ -168,41 +188,49 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel65)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel66)
                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttnEdit)
                     .addComponent(bttnHapus))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel68.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel68.setForeground(new java.awt.Color(255, 255, 255));
         jLabel68.setText("Bolu");
 
         jPanel29.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel69.setText("Bolu Meses");
 
+        jLabel70.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(158, 115, 52));
         jLabel70.setText("Rp. 15.0000");
 
-        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel71.setText("Jumlah");
 
         jLabel72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/bolumeses.png"))); // NOI18N
         jLabel72.setText("jLabel72");
 
-        bttnEdit1.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit1.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit1.setText("EDIT");
+        bttnEdit1.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit1.setText("Edit");
+        bttnEdit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnEdit1ActionPerformed(evt);
+            }
+        });
 
         bttnHapus1.setBackground(new java.awt.Color(95, 156, 113));
         bttnHapus1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnHapus1.setText("HAPUS");
+        bttnHapus1.setForeground(new java.awt.Color(255, 255, 255));
+        bttnHapus1.setText("Hapus");
 
         javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
         jPanel29.setLayout(jPanel29Layout);
@@ -211,24 +239,24 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel29Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel29Layout.createSequentialGroup()
                                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel29Layout.createSequentialGroup()
-                                        .addComponent(jLabel71)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel70)
                                     .addComponent(jLabel69))
-                                .addGap(60, 60, 60))))
+                                .addGap(79, 79, 79))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel29Layout.createSequentialGroup()
+                                .addComponent(jLabel71)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(bttnEdit1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(bttnHapus1)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,72 +269,77 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
                 .addComponent(jLabel70)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel71))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel71)
+                    .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttnEdit1)
                     .addComponent(bttnHapus1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel30.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel73.setText("Bolu Meses Starberry");
 
+        jLabel74.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(158, 115, 52));
         jLabel74.setText("Rp. 20.0000");
 
-        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel75.setText("Jumlah");
 
         jLabel76.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/bolu meses strawberry.png"))); // NOI18N
 
-        bttnEdit2.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit2.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit2.setText("EDIT");
+        bttnEdit2.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit2.setText("Edit");
 
         bttnHapus2.setBackground(new java.awt.Color(95, 156, 113));
         bttnHapus2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnHapus2.setText("HAPUS");
+        bttnHapus2.setForeground(new java.awt.Color(255, 255, 255));
+        bttnHapus2.setText("Hapus");
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
         jPanel30Layout.setHorizontalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel30Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-            .addGroup(jPanel30Layout.createSequentialGroup()
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel30Layout.createSequentialGroup()
-                                .addComponent(jLabel75)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel74)
-                            .addComponent(jLabel73)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel75)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
+                        .addGap(27, 27, 27)
                         .addComponent(bttnEdit2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(bttnHapus2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(jPanel30Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel76, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addGroup(jPanel30Layout.createSequentialGroup()
+                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel74)
+                            .addComponent(jLabel73))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel76)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel73)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel74)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel75)
                     .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -318,24 +351,27 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
 
         jPanel31.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel77.setText("Bolu Matcah Straberry");
 
+        jLabel78.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(158, 115, 52));
         jLabel78.setText("Rp. 27.0000");
 
-        jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel79.setText("Jumlah");
 
         jLabel80.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/bolu matcha strawberry.png"))); // NOI18N
 
-        bttnEdit3.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit3.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit3.setText("EDIT");
+        bttnEdit3.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit3.setText("Edit");
 
         bttnHapus3.setBackground(new java.awt.Color(95, 156, 113));
         bttnHapus3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnHapus3.setText("HAPUS");
+        bttnHapus3.setForeground(new java.awt.Color(255, 255, 255));
+        bttnHapus3.setText("Hapus");
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
         jPanel31.setLayout(jPanel31Layout);
@@ -344,20 +380,21 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel31Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel31Layout.createSequentialGroup()
-                                .addComponent(jLabel79)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel78)
-                            .addComponent(jLabel77)))
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel79)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel80, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel31Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(bttnEdit3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bttnHapus3)))
+                        .addGap(18, 18, 18)
+                        .addComponent(bttnHapus3))
+                    .addGroup(jPanel31Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel78)
+                            .addComponent(jLabel77))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel31Layout.setVerticalGroup(
@@ -370,19 +407,15 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel78)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel79)
                     .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttnEdit3)
                     .addComponent(bttnHapus3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
-
-        jButton9.setBackground(new java.awt.Color(239, 231, 221));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton9.setText("KEMBALI");
 
         javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
         jPanel27.setLayout(jPanel27Layout);
@@ -395,13 +428,10 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
                         .addComponent(jPanel28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(jPanel29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
+                        .addGap(30, 30, 30)
                         .addComponent(jPanel30, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel27Layout.createSequentialGroup()
-                        .addGap(456, 456, 456)
-                        .addComponent(jButton9))
                     .addGroup(jPanel27Layout.createSequentialGroup()
                         .addGap(483, 483, 483)
                         .addComponent(jLabel68)))
@@ -413,14 +443,13 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel68)
                 .addGap(29, 29, 29)
-                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel31, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel30, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28)
-                .addComponent(jButton9)
-                .addGap(19, 19, 19))
+                    .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jPanel30, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel29, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jPanel32.setBackground(new java.awt.Color(210, 206, 206));
@@ -576,6 +605,14 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton30ActionPerformed
 
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton36ActionPerformed
+
+    private void bttnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEdit1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bttnEdit1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -614,7 +651,7 @@ public class MenuBoluAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton30;
     private javax.swing.JButton jButton31;
     private javax.swing.JButton jButton32;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButton36;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel64;

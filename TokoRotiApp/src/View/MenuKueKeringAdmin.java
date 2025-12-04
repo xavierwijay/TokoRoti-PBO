@@ -31,6 +31,7 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
         jPanel33 = new javax.swing.JPanel();
         jPanel34 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
+        jButton36 = new javax.swing.JButton();
         txtJudulMenu = new javax.swing.JLabel();
         jPanel35 = new javax.swing.JPanel();
         jPanel36 = new javax.swing.JPanel();
@@ -66,7 +67,6 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         bttnEdit3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
         jPanel40 = new javax.swing.JPanel();
         bttnKueUltah = new javax.swing.JButton();
         bttnRoti = new javax.swing.JButton();
@@ -77,47 +77,65 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
 
         jPanel33.setBackground(new java.awt.Color(239, 231, 221));
 
-        jPanel34.setBackground(new java.awt.Color(218, 194, 162));
+        jPanel34.setBackground(new java.awt.Color(209, 186, 155));
 
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/logo.png"))); // NOI18N
+
+        jButton36.setBackground(new java.awt.Color(79, 111, 128));
+        jButton36.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton36.setForeground(new java.awt.Color(255, 255, 255));
+        jButton36.setText("Keluar");
+        jButton36.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton36ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
         jPanel34.setLayout(jPanel34Layout);
         jPanel34Layout.setHorizontalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel34Layout.createSequentialGroup()
-                .addContainerGap(913, Short.MAX_VALUE)
+            .addGroup(jPanel34Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
                 .addComponent(jLabel26)
-                .addGap(51, 51, 51))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 769, Short.MAX_VALUE)
+                .addComponent(jButton36)
+                .addGap(56, 56, 56))
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel34Layout.createSequentialGroup()
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel34Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jButton36, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         txtJudulMenu.setFont(new java.awt.Font("Segoe UI Black", 1, 34)); // NOI18N
         txtJudulMenu.setText("Hallo Admin");
 
-        jPanel35.setBackground(new java.awt.Color(193, 170, 137));
+        jPanel35.setBackground(new java.awt.Color(209, 186, 155));
 
         jPanel36.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel64.setText("Nastar Selai Keju");
 
+        jLabel65.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel65.setForeground(new java.awt.Color(158, 115, 52));
         jLabel65.setText("Rp. 40.0000");
 
-        jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel66.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel66.setText("Jumlah");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/nastar .png"))); // NOI18N
 
-        bttnEdit.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit.setText("EDIT");
+        bttnEdit.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit.setText("Edit");
         bttnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEditActionPerformed(evt);
@@ -126,7 +144,8 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
 
         bttnHapus.setBackground(new java.awt.Color(95, 156, 113));
         bttnHapus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnHapus.setText("HAPUS");
+        bttnHapus.setForeground(new java.awt.Color(255, 255, 255));
+        bttnHapus.setText("Hapus");
         bttnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnHapusActionPerformed(evt);
@@ -141,64 +160,68 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel36Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel36Layout.createSequentialGroup()
-                                    .addComponent(jLabel66)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel65)
-                                .addComponent(jLabel64)))
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel66)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel36Layout.createSequentialGroup()
                             .addGap(32, 32, 32)
                             .addComponent(jLabel2)))
                     .addGroup(jPanel36Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(bttnEdit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bttnHapus)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel65)
+                            .addComponent(jLabel64))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel36Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(bttnEdit)
+                .addGap(18, 18, 18)
+                .addComponent(bttnHapus)
+                .addGap(26, 26, 26))
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel36Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel64)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel65)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel66)
                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttnEdit)
                     .addComponent(bttnHapus))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel68.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel68.setForeground(new java.awt.Color(255, 255, 255));
         jLabel68.setText("Kue Kering");
 
         jPanel37.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel69.setText("Cookies");
 
+        jLabel70.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel70.setForeground(new java.awt.Color(158, 115, 52));
         jLabel70.setText("Rp. 15.0000");
 
-        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel71.setText("Jumlah");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/cookies.png"))); // NOI18N
 
-        bttnEdit1.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit1.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit1.setText("EDIT");
+        bttnEdit1.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit1.setText("Edit");
         bttnEdit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEdit1ActionPerformed(evt);
@@ -207,7 +230,8 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(95, 156, 113));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setText("HAPUS");
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Hapus");
 
         javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
         jPanel37.setLayout(jPanel37Layout);
@@ -216,31 +240,31 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
             .addGroup(jPanel37Layout.createSequentialGroup()
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel37Layout.createSequentialGroup()
-                                .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel37Layout.createSequentialGroup()
-                                        .addComponent(jLabel71)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel70)
-                                    .addComponent(jLabel69))
-                                .addGap(60, 60, 60))))
-                    .addGroup(jPanel37Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addGap(29, 29, 29)
                         .addComponent(bttnEdit1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jButton4))
+                    .addGroup(jPanel37Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel71)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel37Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel37Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel69)
+                            .addComponent(jLabel70))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel37Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel69)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel70)
@@ -257,20 +281,22 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
 
         jPanel38.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel73.setText("Putri Salju");
 
+        jLabel74.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(158, 115, 52));
         jLabel74.setText("Rp. 30.0000");
 
-        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel75.setText("Jumlah");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/putri salju.png"))); // NOI18N
 
-        bttnEdit2.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit2.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit2.setText("EDIT");
+        bttnEdit2.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit2.setText("Edit");
         bttnEdit2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEdit2ActionPerformed(evt);
@@ -279,28 +305,30 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
 
         jButton6.setBackground(new java.awt.Color(95, 156, 113));
         jButton6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton6.setText("HAPUS");
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Hapus");
 
         javax.swing.GroupLayout jPanel38Layout = new javax.swing.GroupLayout(jPanel38);
         jPanel38.setLayout(jPanel38Layout);
         jPanel38Layout.setHorizontalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel38Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel38Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel75)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel38Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel38Layout.createSequentialGroup()
-                                .addComponent(jLabel75)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel74)
-                            .addComponent(jLabel73))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel38Layout.createSequentialGroup()
-                        .addGap(0, 31, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(27, 27, 27))))
+                            .addComponent(jLabel73))))
+                .addContainerGap(68, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel38Layout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(27, 27, 27))
             .addGroup(jPanel38Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(bttnEdit2)
@@ -313,37 +341,39 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel38Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel73)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel74)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel75)
-                    .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jSpinner15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel75))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttnEdit2)
                     .addComponent(jButton6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel39.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel77.setText("Kue Mawar");
 
+        jLabel78.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(158, 115, 52));
         jLabel78.setText("Rp. 30.000");
 
-        jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel79.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel79.setText("Jumlah");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/kue mawar.png"))); // NOI18N
 
-        bttnEdit3.setBackground(new java.awt.Color(192, 134, 134));
+        bttnEdit3.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bttnEdit3.setText("EDIT");
+        bttnEdit3.setForeground(new java.awt.Color(255, 255, 255));
+        bttnEdit3.setText("Edit");
         bttnEdit3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttnEdit3ActionPerformed(evt);
@@ -352,7 +382,8 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
 
         jButton8.setBackground(new java.awt.Color(95, 156, 113));
         jButton8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton8.setText("HAPUS");
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Hapus");
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
         jPanel39.setLayout(jPanel39Layout);
@@ -363,16 +394,20 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel39Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel79)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel78)
-                    .addComponent(jLabel77)
                     .addGroup(jPanel39Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(bttnEdit3)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton8)))
+                        .addComponent(jButton8))
+                    .addGroup(jPanel39Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel78)
+                            .addComponent(jLabel77))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel39Layout.setVerticalGroup(
@@ -380,24 +415,20 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel39Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel77)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel78)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel79)
                     .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bttnEdit3)
                     .addComponent(jButton8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
-
-        jButton9.setBackground(new java.awt.Color(239, 231, 221));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton9.setText("KEMBALI");
 
         javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
         jPanel35.setLayout(jPanel35Layout);
@@ -406,36 +437,31 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
             .addGroup(jPanel35Layout.createSequentialGroup()
                 .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel35Layout.createSequentialGroup()
-                        .addGap(470, 470, 470)
-                        .addComponent(jLabel68))
-                    .addGroup(jPanel35Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
+                        .addGap(30, 30, 30)
                         .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
+                        .addGap(32, 32, 32)
                         .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel35Layout.createSequentialGroup()
-                        .addGap(455, 455, 455)
-                        .addComponent(jButton9)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                        .addGap(437, 437, 437)
+                        .addComponent(jLabel68)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel35Layout.setVerticalGroup(
             jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel35Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel68)
-                .addGap(28, 28, 28)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
-                .addComponent(jButton9)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jPanel40.setBackground(new java.awt.Color(210, 206, 206));
@@ -519,7 +545,7 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel33Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(txtJudulMenu)
@@ -535,7 +561,7 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
                 .addComponent(jPanel40, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1337, 1337, 1337))
+                .addGap(1220, 1220, 1220))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -546,9 +572,7 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -614,6 +638,10 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_bttnRotiActionPerformed
 
+    private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton36ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -649,15 +677,11 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
     private javax.swing.JButton bttnKueKering;
     private javax.swing.JButton bttnKueUltah;
     private javax.swing.JButton bttnRoti;
+    private javax.swing.JButton jButton36;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -675,14 +699,6 @@ public class MenuKueKeringAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
-    private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
-    private javax.swing.JPanel jPanel29;
-    private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
