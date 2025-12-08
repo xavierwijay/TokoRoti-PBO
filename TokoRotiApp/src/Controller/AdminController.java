@@ -9,34 +9,42 @@ import java.sql.SQLException;
 
 public class AdminController {
     private Connection conn;
+    private Statement  stm;
+    private ResultSet  res;
+    private String     sql;
 
     public AdminController() {
-        try {
-            conn = Koneksi.configDB();
-        } catch (SQLException e) {
-            System.out.println("Koneksi gagal: " + e.getMessage());
-        }
+        try { conn = Koneksi.configDB(); }
+        catch (SQLException e) { System.out.println("Koneksi gagal: " + e.getMessage()); }
     }
 
-    public boolean cekLogin(String namaInput, String pw, String role) {
+    private static String esc(String s) { return s == null ? "" : s.replace("'", "''").trim(); }
+
+    // ADMIN: fullname + password
+    public boolean cekLogin(String un, String pw) {
         Admin adm = new Admin();
-        adm.setUsername(namaInput);
-        adm.setFullname(namaInput);
+        adm.setFullname(un);
         adm.setPassword(pw);
-        adm.setRole(role);
+        boolean status = false;
 
-    String kolom = "admin".equalsIgnoreCase(role) ? "username" : "fullname";
-    String nilai = "admin".equalsIgnoreCase(role) ? adm.getUsername().trim() : adm.getFullname().trim();
+        try {
+            this.sql = "SELECT * FROM users WHERE "
+                     + "fullname='" + esc(adm.getFullname()) + "' "
+                     + "AND password='" + esc(adm.getPassword()) + "' "
+                     + "AND role='admin' LIMIT 1";
 
-    String sql = "SELECT * FROM users WHERE " + kolom + " = '" + nilai + "' " + "AND password = '" + adm.getPassword() + "' "+ "AND role = '" + adm.getRole().toLowerCase() + "'";
-
-    try (java.sql.Statement stm = conn.createStatement();
-         java.sql.ResultSet rs = stm.executeQuery(sql)) {
-        return rs.next();
-    } catch (SQLException e) {
-        System.out.println("Login gagal: " + e.getMessage());
-        return false;
+            this.stm = this.conn.createStatement();
+            this.res = this.stm.executeQuery(this.sql);
+            status = res.next();
+        } catch (Exception e) {
+            System.out.println("Query gagal (admin): " + e.getMessage());
+            System.out.println("SQL -> " + this.sql);
+            status = false;
+        } finally {
+            try { if (res != null) res.close(); } catch (Exception ignore) {}
+            try { if (stm != null) stm.close(); } catch (Exception ignore) {}
+        }
+        return status;
     }
-}
 
 }

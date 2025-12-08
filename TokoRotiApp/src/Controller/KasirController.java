@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
 import Config.Koneksi;
 import Model.Kasir;
@@ -12,36 +8,41 @@ import java.sql.SQLException;
 
 public class KasirController {
     private Connection conn;
+    private Statement  stm;
+    private ResultSet  res;
+    private String     sql;
 
     public KasirController() {
-        try {
-            conn = Koneksi.configDB();
-        } catch (SQLException e) {
-            System.out.println("Koneksi gagal: " + e.getMessage());
-        }
+        try { conn = Koneksi.configDB(); }
+        catch (SQLException e) { System.out.println("Koneksi gagal: " + e.getMessage()); }
     }
 
-    public boolean cekLogin(String fullname, String pw, String role) {
-        Kasir kr = new Kasir();
-        kr.setFullname(fullname);
-        kr.setPassword(pw);
-        kr.setRole(role);
+    private static String esc(String s) { return s == null ? "" : s.replace("'", "''").trim(); }
 
+    // KASIR: username + password, role=cashier
+    public boolean cekLogin(String un, String pw) {
+        Kasir k = new Kasir();
+        k.setUsername(un);
+        k.setPassword(pw);
         boolean status = false;
 
-        String sql = "SELECT * FROM users WHERE "+"fullname ='"+kr.getFullname()+"'"+"AND password ='"+kr.getPassword() + "'"+"AND role ='"+kr.getRole()+"'";
-
         try {
-            Statement stm = conn.createStatement();
-            ResultSet res = stm.executeQuery(sql);
+            this.sql = "SELECT * FROM users WHERE "
+                     + "username='" + esc(k.getUsername()) + "' "
+                     + "AND password='" + esc(k.getPassword()) + "' "
+                     + "AND role='cashier' LIMIT 1";
 
-            status = res.next();        
-        } catch (SQLException e) {
-            System.out.println("Login gagal: " + e.getMessage());
+            this.stm = this.conn.createStatement();
+            this.res = this.stm.executeQuery(this.sql);
+            status = res.next();
+        } catch (Exception e) {
+            System.out.println("Query gagal (kasir): " + e.getMessage());
+            System.out.println("SQL -> " + this.sql);
+            status = false;
+        } finally {
+            try { if (res != null) res.close(); } catch (Exception ignore) {}
+            try { if (stm != null) stm.close(); } catch (Exception ignore) {}
         }
-
         return status;
     }
-
-    
 }
