@@ -648,7 +648,7 @@ public class KueUlangTahun extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(101, "Kue Ulang Tahun Coklat Strawberry", 70000.0, 0, "kue"); // ID & harga sesuaikan
+    Product p = new Product(101, "Kue Ulang Tahun Coklat Strawberry", 70000.0, 0, "kue", "/View/strawrberry coklat.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -662,7 +662,7 @@ public class KueUlangTahun extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(102, "Kue Ulang Tahun Matcha", 100000.0, 0, "kue"); // ID & harga sesuaikan
+    Product p = new Product(102, "Kue Ulang Tahun Matcha", 100000.0, 0, "kue", "/View/matcaha cake.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -676,7 +676,7 @@ public class KueUlangTahun extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(103, "Kue Ulang Tahun Vanila", 90000.0, 0, "kue"); // ID & harga sesuaikan
+    Product p = new Product(103, "Kue Ulang Tahun Vanila", 90000.0, 0, "kue", "/View/vanilla cake.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -690,7 +690,7 @@ public class KueUlangTahun extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(104, "Kue Ulang Tahun Buah", 120000.0, 0, "kue"); // ID & harga sesuaikan
+    Product p = new Product(104, "Kue Ulang Tahun Buah", 120000.0, 0, "kue", "/View/buah cake.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");

@@ -8,40 +8,48 @@ import java.util.List;
 
 public class ProductController {
     
-    // 1. FITUR TAMBAH ROTI (CREATE)
+    // 1. FITUR TAMBAH ROTI (CREATE) - Masuk ke tbmakanan
     public void tambahData(Product p) {
-        String sql = "INSERT INTO products (name, price, stock, category) VALUES (?, ?, ?, ?)";
+        // PERUBAHAN DISINI: Menggunakan tbmakanan dan kolom image_path
+        String sql = "INSERT INTO tbmakanan (name, price, stock, category, image_path) VALUES (?, ?, ?, ?, ?)";
+        
         try {
             Connection c = Koneksi.configDB();
             PreparedStatement pst = c.prepareStatement(sql);
+            
             pst.setString(1, p.getName());
             pst.setDouble(2, p.getPrice());
             pst.setInt(3, p.getStock());
             pst.setString(4, p.getCategory());
+            
+            // Pastikan di Model Product sudah ada method getImagePath()
+            // Jika belum ada, ganti dengan string kosong "" dulu: pst.setString(5, "");
+            pst.setString(5, p.getImagePath()); 
+            
             pst.execute();
-            System.out.println("Berhasil Tambah Data: " + p.getName());
+            System.out.println("Berhasil Tambah Data ke tbmakanan: " + p.getName());
         } catch (Exception e) {
             System.err.println("Gagal Tambah Data: " + e.getMessage());
         }
     }
 
     // 2. FITUR EDIT ROTI (UPDATE)
-    public void editData(Model.Product p) {
-        // Query Update: Ubah nama, harga, stok, kategori BERDASARKAN ID
-        String sql = "UPDATE products SET name=?, price=?, stock=?, category=? WHERE product_id=?";
+    public void editData(Product p) {
+        // Query Update: Ubah nama, harga, stok, kategori, gambar BERDASARKAN product_id
+        String sql = "UPDATE tbmakanan SET name=?, price=?, stock=?, category=?, image_path=? WHERE product_id=?";
         
         try {
-            java.sql.Connection c = Config.Koneksi.configDB();
-            java.sql.PreparedStatement pst = c.prepareStatement(sql);
+            Connection c = Koneksi.configDB();
+            PreparedStatement pst = c.prepareStatement(sql);
             
-            // Masukkan data baru ke tanda tanya (?)
             pst.setString(1, p.getName());
             pst.setDouble(2, p.getPrice());
             pst.setInt(3, p.getStock());
             pst.setString(4, p.getCategory());
+            pst.setString(5, p.getImagePath());
             
-            // PENTING: ID ditaruh di tanda tanya terakhir (WHERE)
-            pst.setInt(5, p.getId());
+            // ID ditaruh di tanda tanya terakhir (WHERE product_id=?)
+            pst.setInt(6, p.getId());
             
             pst.executeUpdate();
             System.out.println("Berhasil Update ID: " + p.getId());
@@ -53,7 +61,9 @@ public class ProductController {
 
     // 3. FITUR HAPUS ROTI (DELETE)
     public void hapusData(int id) {
-        String sql = "DELETE FROM products WHERE product_id=?";
+        // Hapus berdasarkan product_id
+        String sql = "DELETE FROM tbmakanan WHERE product_id=?";
+        
         try {
             Connection c = Koneksi.configDB();
             PreparedStatement pst = c.prepareStatement(sql);
@@ -65,22 +75,28 @@ public class ProductController {
         }
     }
 
-    // 4. FITUR AMBIL SEMUA DATA (READ) -> Buat ditampilkan di Tabel
+    // 4. FITUR AMBIL SEMUA DATA (READ)
     public List<Product> ambilSemuaData() {
         List<Product> listProduct = new ArrayList<>();
-        String sql = "SELECT * FROM products";
+        // Ambil semua dari tbmakanan
+        String sql = "SELECT * FROM tbmakanan"; 
+        
         try {
             Connection c = Koneksi.configDB();
             Statement stm = c.createStatement();
             ResultSet rs = stm.executeQuery(sql);
             
             while(rs.next()) {
-                Product p = new Product();
-                p.setId(rs.getInt("product_id"));
-                p.setName(rs.getString("name"));
-                p.setPrice(rs.getDouble("price"));
-                p.setStock(rs.getInt("stock"));
-                p.setCategory(rs.getString("category"));
+                // Perhatikan nama kolom sesuai database tbmakanan yang baru di-alter
+                int id = rs.getInt("product_id"); 
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                int stock = rs.getInt("stock");
+                String category = rs.getString("category");
+                String imagePath = rs.getString("image_path");
+                
+                // Masukkan ke Constructor Product (Pastikan urutannya sesuai dengan Model kamu)
+                Product p = new Product(id, name, price, stock, category, imagePath);
                 
                 listProduct.add(p);
             }

@@ -3,8 +3,10 @@ package View;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.nio.file.Files;               //untuk copy file image
+import java.nio.file.StandardCopyOption;  //untuk copy file image
 import java.io.IOException;
+import java.io.File;        //utuk mengenali objek file di komputerr
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -29,7 +31,7 @@ public class InputMenu extends javax.swing.JFrame {
     
     public InputMenu() {
         initComponents();
-        GambarLogo(Logo, "/View/logo besar.png");  
+        GambarLogo(Logo, "/View/logo_besar.png");  
         
         loadData();
     }
@@ -334,73 +336,83 @@ public class InputMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGambarActionPerformed
-        // TODO add your handling code here:
-        JFileChooser jc = new JFileChooser(new File(System.getProperty("user.home"), "Pictures"));
-    jc.setAcceptAllFileFilterUsed(false);
-    jc.addChoosableFileFilter(
-        new FileNameExtensionFilter("Gambar (JPG, JPEG, PNG)", "jpg", "jpeg", "png")
-    );
-    jc.setMultiSelectionEnabled(false);
-
-    int res = jc.showOpenDialog(this);
-    if (res == JFileChooser.APPROVE_OPTION) {
-        File f = jc.getSelectedFile();
-
-        // validasi ekstensi (double check)
-        String n = f.getName().toLowerCase();
-        if (!(n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png"))) {
-            JOptionPane.showMessageDialog(this, "Pilih file JPG/PNG.");
-            return;
+        JFileChooser jc = new JFileChooser();
+        // Filter biar cuma bisa pilih gambar
+        jc.setFileFilter(new FileNameExtensionFilter("Gambar JPG/PNG", "jpg", "jpeg", "png"));
+        
+        int respon = jc.showOpenDialog(this);
+        if (respon == JFileChooser.APPROVE_OPTION) {
+            fileGambarTerpilih = jc.getSelectedFile();
+            
+            // Tampilkan preview di label TempatFoto
+            aturGambar(TempatFoto, fileGambarTerpilih); 
         }
-
-        fileGambarTerpilih = f;
-
-        // preview ke label (pakai method kamu)
-        TempatFoto(TempatFoto, fileGambarTerpilih);
-
-        // opsional: aktifkan tombol tambah setelah ada gambar
-        btnTambah.setEnabled(true);
-    }
     }//GEN-LAST:event_btnGambarActionPerformed
 
+    private void aturGambar(javax.swing.JLabel label, File file) {
+        try {
+            BufferedImage img = ImageIO.read(file);
+            if (img != null) {
+                Image scaled = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+                label.setIcon(new ImageIcon(scaled));
+                label.setText(""); // Hapus teks "jLabel..."
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
         try {
-            // 1. Ambil data dari kotak inputan
             String nama = txtNama.getText();
-            // Konversi teks ke angka (Double/Integer)
             double harga = Double.parseDouble(txtHarga.getText());
             int stok = Integer.parseInt(txtStok.getText());
             String kategori = cbKategori.getSelectedItem().toString();
-
-            // 2. Cek kalau inputan kosong (Opsional tapi bagus)
-            if (nama.isEmpty()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Nama roti tidak boleh kosong!");
-                return;
+            
+            // --- LOGIKA COPY GAMBAR ---
+            String namaFileGambar = "default.png"; // Default jika tidak pilih gambar
+            
+            if (fileGambarTerpilih != null) {
+                // 1. Bikin nama unik pakai waktu sekarang (biar tidak bentrok)
+                String ekstensi = fileGambarTerpilih.getName().substring(fileGambarTerpilih.getName().lastIndexOf("."));
+                namaFileGambar = "IMG_" + System.currentTimeMillis() + ekstensi;
+                
+                // 2. Tentukan Folder Tujuan: src/View/
+                File folderTujuan = new File("src/View");
+                if (!folderTujuan.exists()) folderTujuan.mkdirs(); // Bikin folder kalau belum ada
+                
+                // 3. Proses Copy
+                File fileTujuan = new File(folderTujuan, namaFileGambar);
+                Files.copy(fileGambarTerpilih.toPath(), fileTujuan.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
 
-            // 3. Masukkan data ke "Wadah" (Model Product)
-            // ID diisi 0 saja karena di database dia Auto Increment
-            Model.Product rotiBaru = new Model.Product(0, nama, harga, stok, kategori);
+            // Masukkan data ke Model (termasuk nama file gambar)
+            Model.Product p = new Model.Product(0, nama, harga, stok, kategori, namaFileGambar);
             
-            // 4. Panggil Controller untuk simpan ke Database
-            controller.tambahData(rotiBaru);
+            // Kirim ke Controller
+            controller.tambahData(p);
             
-            // 5. Refresh Tabel & Bersihkan Inputan
-            loadData(); // <-- Panggil method sakti yang barusan kamu buat
-            txtNama.setText("");
-            txtHarga.setText("");
-            txtStok.setText("");
+            // Refresh
+            loadData();
+            bersihkanInput(); // Bikin method kecil untuk kosongkan textfield
+            fileGambarTerpilih = null; // Reset file
+            TempatFoto.setIcon(null); // Reset preview
             
-            javax.swing.JOptionPane.showMessageDialog(this, "Mantap! Roti berhasil ditambahkan.");
+            javax.swing.JOptionPane.showMessageDialog(this, "Berhasil simpan menu dengan gambar!");
             
         } catch (NumberFormatException e) {
-            // Jaga-jaga kalau user ngisi Harga/Stok pakai huruf
-            javax.swing.JOptionPane.showMessageDialog(this, "Harga dan Stok harus angka ya!");
+            javax.swing.JOptionPane.showMessageDialog(this, "Harga & Stok harus angka!");
         } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
-        
+    }
+    
+    // Method kecil buat bersih-bersih form
+    private void bersihkanInput() {
+        txtNama.setText("");
+        txtHarga.setText("");
+        txtStok.setText("");
     }//GEN-LAST:event_btnTambahActionPerformed
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
@@ -499,7 +511,7 @@ public class InputMenu extends javax.swing.JFrame {
 
             // 4. BUNGKUS DATA JADI OBJEK PRODUCT
             // (ID Lama + Data Baru)
-            Model.Product rotiUpdate = new Model.Product(id, nama, harga, stok, kategori);
+            Model.Product rotiUpdate = new Model.Product(id, nama, harga, stok, kategori, "");
             
             // 5. SURUH CONTROLLER UPDATE KE DATABASE
             controller.editData(rotiUpdate);

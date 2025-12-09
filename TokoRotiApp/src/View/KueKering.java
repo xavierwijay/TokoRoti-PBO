@@ -587,7 +587,7 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(401, "Nastar Selai Keju", 40000.0, 0, "kue kering"); // ID & harga sesuaikan
+    Product p = new Product(401, "Nastar Selai Keju", 40000.0, 0, "kue kering", "/View/nastar .png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -601,7 +601,7 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(402, "Cookies", 15000.0, 0, "kue kering"); // ID & harga sesuaikan
+    Product p = new Product(402, "Cookies", 15000.0, 0, "kue kering", "/View/cookies.png");
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -615,7 +615,7 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(403, "Putri Salju", 30000.0, 0, "kue kering"); // ID & harga sesuaikan
+    Product p = new Product(403, "Putri Salju", 30000.0, 0, "kue kering", "/View/putri salju.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -629,7 +629,7 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(404, "Kue Mawar", 30000.0, 0, "kue kering"); // ID & harga sesuaikan
+    Product p = new Product(404, "Kue Mawar", 30000.0, 0, "kue kering", "/View/kue mawar.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");

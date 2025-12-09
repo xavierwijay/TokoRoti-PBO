@@ -1680,7 +1680,7 @@ public class Bolu extends javax.swing.JFrame {
         jPanel31.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel77.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel77.setText("Bolu Matcah Straberry");
+        jLabel77.setText("Bolu Matcah Strawberry");
 
         jLabel78.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel78.setForeground(new java.awt.Color(158, 115, 52));
@@ -1972,7 +1972,7 @@ public class Bolu extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(301, "Bolu Keju", 20000.0, 0, "bolu"); // ID & harga sesuaikan
+    Product p = new Product(301, "Bolu Keju", 20000.0, 0, "bolu", "/View/bolu keju.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -1986,7 +1986,7 @@ public class Bolu extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(302, "Bolu Meses", 15000.0, 0, "bolu"); // ID & harga sesuaikan
+    Product p = new Product(301, "Bolu Meses", 15000 , 0, "bolu", "/View/bolumeses.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -2000,7 +2000,7 @@ public class Bolu extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(303, "Bolu Meses Strawberry", 20000.0, 0, "bolu"); // ID & harga sesuaikan
+    Product p = new Product(301, "Bolu Meses Strawberry", 20000, 0, "bolu", "/View/bolu meses strawberry.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -2014,7 +2014,7 @@ public class Bolu extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(304, "Bolu Matcha", 27000.0, 0, "bolu"); // ID & harga sesuaikan
+    Product p = new Product(301, "Bolu Matcha Strawberry", 27000, 0, "bolu", "/View/bolu matcha strawberry.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");

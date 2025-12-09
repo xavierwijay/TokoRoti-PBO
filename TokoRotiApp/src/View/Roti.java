@@ -589,7 +589,7 @@ public class Roti extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(201, "Roti Bawang", 25000.0, 0, "roti"); // ID & harga sesuaikan
+    Product p = new Product(201, "Roti Bawang", 25000.0, 0, "roti", "/View/garlic.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -626,7 +626,7 @@ public class Roti extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(202, "Roti Isi Ayam", 15000.0, 0, "roti"); // ID & harga sesuaikan
+    Product p = new Product(202, "Roti Isi Ayam", 15000.0, 0, "roti", "/View/roti isi.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -640,7 +640,7 @@ public class Roti extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(203, "Roti Sobek", 13000.0, 0, "roti"); // ID & harga sesuaikan
+    Product p = new Product(203, "Roti Sobek", 13000.0, 0, "roti", "/View/roti sobek.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
@@ -654,7 +654,7 @@ public class Roti extends javax.swing.JFrame {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(204, "Roti Tawar", 22000.0, 0, "roti"); // ID & harga sesuaikan
+    Product p = new Product(204, "Roti Tawar", 22000.0, 0, "roti", "/View/roti tawar.png"); // ID & harga sesuaikan
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
