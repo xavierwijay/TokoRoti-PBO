@@ -37,27 +37,32 @@ public class InputMenu extends javax.swing.JFrame {
     }
     
     private void loadData() {
-        // 1. Judul Kolom
-        String[] judul = {"ID", "Nama Roti", "Harga", "Stok", "Kategori"};
-        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(null, judul);
-        
-        // 2. Ambil data dari Controller
-        // Pastikan 'controller' sudah dideklarasikan di bagian atas class
-        java.util.List<Model.Product> listRoti = controller.ambilSemuaData();
-        
-        // 3. Masukkan ke Tabel
-        for (Model.Product p : listRoti) {
-            Object[] row = new Object[5];
-            row[0] = p.getId();
-            row[1] = p.getName();
-            row[2] = p.getPrice();
-            row[3] = p.getStock();
-            row[4] = p.getCategory();
-            model.addRow(row);
-        }
-        
-        // 4. Set ke GUI
-        tblRoti.setModel(model);
+        // 1. Judul Kolom (Tambahkan "Image Path")
+    String[] judul = {"ID", "Nama Roti", "Harga", "Stok", "Kategori", "Image Path"};
+    javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(null, judul);
+    
+    // 2. Ambil data dari Controller
+    java.util.List<Model.Product> listRoti = controller.ambilSemuaData();
+    
+    // 3. Masukkan ke Tabel
+    for (Model.Product p : listRoti) {
+        Object[] row = new Object[6]; // Ubah ukuran array jadi 6
+        row[0] = p.getId();
+        row[1] = p.getName();
+        row[2] = p.getPrice();
+        row[3] = p.getStock();
+        row[4] = p.getCategory();
+        row[5] = p.getImagePath(); // Ambil path gambar dari objek Product
+        model.addRow(row);
+    }
+    
+    // 4. Set ke GUI
+    tblRoti.setModel(model);
+    
+    //sembunyikan kolom Image Path agar tabel tidak berantakan
+    tblRoti.getColumnModel().getColumn(5).setMinWidth(0);
+    tblRoti.getColumnModel().getColumn(5).setMaxWidth(0);
+    tblRoti.getColumnModel().getColumn(5).setWidth(0);
     }
 
         private void GambarLogo(javax.swing.JLabel label, String resourcePath) {
@@ -386,7 +391,8 @@ public class InputMenu extends javax.swing.JFrame {
                 File fileTujuan = new File(folderTujuan, namaFileGambar);
                 Files.copy(fileGambarTerpilih.toPath(), fileTujuan.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
-
+            
+            
             // Masukkan data ke Model (termasuk nama file gambar)
             Model.Product p = new Model.Product(0, nama, harga, stok, kategori, namaFileGambar);
             
@@ -468,15 +474,40 @@ public class InputMenu extends javax.swing.JFrame {
 
     private void tblRotiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRotiMouseClicked
         int baris = tblRoti.getSelectedRow();
+    
+    if (baris != -1) {
+        // 1. Ambil data teks dan masukkan ke form input
+        txtNama.setText(tblRoti.getValueAt(baris, 1).toString());
+        txtHarga.setText(tblRoti.getValueAt(baris, 2).toString());
+        txtStok.setText(tblRoti.getValueAt(baris, 3).toString());
+        cbKategori.setSelectedItem(tblRoti.getValueAt(baris, 4).toString());
         
-        if (baris != -1) {
-            // Langsung ambil dari tabel dan masukkan ke Text Field
-            txtNama.setText(tblRoti.getValueAt(baris, 1).toString());
-            txtHarga.setText(tblRoti.getValueAt(baris, 2).toString());
-            txtStok.setText(tblRoti.getValueAt(baris, 3).toString());
+        // 2. Ambil Path Gambar dari kolom ke-5
+        Object imagePathObj = tblRoti.getValueAt(baris, 5);
+        
+        // 3. Tampilkan Gambar di Label
+        if (imagePathObj != null) {
+            String path = imagePathObj.toString();
             
-            cbKategori.setSelectedItem(tblRoti.getValueAt(baris, 4).toString());
+            // Cek validasi path
+            if (!path.isEmpty() && !path.equals("null")) {
+                java.io.File f = new java.io.File(path);
+                if (f.exists()) {
+                    // Panggil method helper untuk menampilkan gambar
+                    TempatFoto(TempatFoto, f);
+                    fileGambarTerpilih = f; // Simpan ke variabel global agar siap diedit
+                } else {
+                    TempatFoto.setIcon(null);
+                    TempatFoto.setText("File Tidak Ditemukan");
+                }
+            } else {
+                TempatFoto.setIcon(null);
+                TempatFoto.setText("No Image");
+            }
+        } else {
+            TempatFoto.setIcon(null);
         }
+    }
     }//GEN-LAST:event_tblRotiMouseClicked
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
