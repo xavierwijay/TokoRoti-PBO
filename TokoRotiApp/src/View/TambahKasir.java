@@ -6,6 +6,10 @@ package View;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import Controller.UserController;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -14,14 +18,20 @@ import javax.swing.ImageIcon;
 public class TambahKasir extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TambahKasir.class.getName());
-
+    
+    private UserController userController;
+    private DefaultTableModel modelKasir;
+    private int selectedId = -1;
+    private String originalUsername = null;
     /**
      * Creates new form TamabahAdmin
      */
     public TambahKasir() {
         initComponents();
         Gambar(Logo, "/View/logo besar.png");
-        
+
+        userController = new UserController();
+        loadTableKasir();
     }
 
         private void Gambar(javax.swing.JLabel label, String resourcePath) {
@@ -37,7 +47,21 @@ public class TambahKasir extends javax.swing.JFrame {
 
         label.setIcon(new ImageIcon(image));
     }
+        
+    private void loadTableKasir() {
+        modelKasir = userController.getTableKasir();
+        jTable1.setModel(modelKasir);
+    }
 
+    private void clearForm() {
+        txtUsername.setText("");
+        txtPassword.setText("");
+        txtFullname.setText("");
+        selectedId = -1;
+        originalUsername = null;
+        jTable1.clearSelection();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,9 +79,9 @@ public class TambahKasir extends javax.swing.JFrame {
         jScrollPane12 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         bttnKembali = new javax.swing.JButton();
-        txtNama = new javax.swing.JTextField();
-        txtHarga = new javax.swing.JTextField();
-        txtStock = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
+        txtFullname = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JTextField();
         bttnTambah = new javax.swing.JButton();
         bttnEdit = new javax.swing.JButton();
         BttnHapus = new javax.swing.JButton();
@@ -90,6 +114,11 @@ public class TambahKasir extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane12.setViewportView(jTable1);
 
         bttnKembali.setBackground(new java.awt.Color(79, 111, 128));
@@ -102,15 +131,43 @@ public class TambahKasir extends javax.swing.JFrame {
             }
         });
 
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
+
+        txtFullname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFullnameActionPerformed(evt);
+            }
+        });
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
         bttnTambah.setBackground(new java.awt.Color(150, 125, 183));
         bttnTambah.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         bttnTambah.setForeground(new java.awt.Color(255, 255, 255));
         bttnTambah.setText("+Tambah");
+        bttnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnTambahActionPerformed(evt);
+            }
+        });
 
         bttnEdit.setBackground(new java.awt.Color(183, 93, 93));
         bttnEdit.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         bttnEdit.setForeground(new java.awt.Color(255, 255, 255));
         bttnEdit.setText("Edit");
+        bttnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttnEditActionPerformed(evt);
+            }
+        });
 
         BttnHapus.setBackground(new java.awt.Color(80, 147, 115));
         BttnHapus.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
@@ -144,17 +201,17 @@ public class TambahKasir extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(336, 336, 336)
                                 .addComponent(bttnTambah))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bttnKembali)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -180,13 +237,13 @@ public class TambahKasir extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bttnTambah, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addComponent(jScrollPane12, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,7 +282,122 @@ public class TambahKasir extends javax.swing.JFrame {
 
     private void BttnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BttnHapusActionPerformed
         // TODO add your handling code here:
+       if (selectedId == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih kasir di tabel dulu");
+            return;
+        }
+
+        int konfirmasi = JOptionPane.showConfirmDialog(
+                this,
+                "Yakin ingin menghapus kasir ini?",
+                "Konfirmasi",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (konfirmasi == JOptionPane.YES_OPTION) {
+            boolean berhasil = userController.deleteKasir(selectedId);
+            if (berhasil) {
+                JOptionPane.showMessageDialog(this, "Kasir berhasil dihapus");
+                clearForm();
+                loadTableKasir();
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus kasir");
+            }
+        }
     }//GEN-LAST:event_BttnHapusActionPerformed
+
+    private void bttnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnEditActionPerformed
+        // TODO add your handling code here:
+        if (selectedId == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih kasir di tabel dulu");
+            return;
+        }
+
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
+        String namaKasir = txtFullname.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty() || namaKasir.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi");
+            return;
+        }
+
+        // kalau username berubah, cek duplikat
+        if (originalUsername != null &&
+            !username.equalsIgnoreCase(originalUsername) &&
+            userController.cekUsername(username)) {
+
+            JOptionPane.showMessageDialog(this, "Username sudah digunakan, pilih yang lain");
+            return;
+        }
+
+        boolean berhasil = userController.updateKasir(selectedId, username, namaKasir, password);
+
+        if (berhasil) {
+            JOptionPane.showMessageDialog(this, "Data kasir berhasil diupdate");
+            clearForm();
+            loadTableKasir();
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal mengupdate kasir");
+        }        
+    }//GEN-LAST:event_bttnEditActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void bttnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnTambahActionPerformed
+        // TODO add your handling code here:
+        String username = txtUsername.getText().trim();
+        String password = txtPassword.getText().trim();
+        String namaKasir = txtFullname.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty() || namaKasir.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Semua field harus diisi");
+            return;
+        }
+
+        if (userController.cekUsername(username)) {
+            JOptionPane.showMessageDialog(this, "Username sudah digunakan, pilih yang lain");
+            return;
+        }
+
+        boolean berhasil = userController.buatAkunKasir(username, namaKasir, password);
+
+        if (berhasil) {
+            JOptionPane.showMessageDialog(this, "Kasir baru berhasil ditambahkan");
+            clearForm();
+            loadTableKasir();
+        } else {
+            JOptionPane.showMessageDialog(this, "Gagal menambahkan kasir");
+        }
+    }//GEN-LAST:event_bttnTambahActionPerformed
+
+    // klik baris di tabel -> isi form                                
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void txtFullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFullnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFullnameActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int row = jTable1.getSelectedRow();
+        if (row != -1) {
+            selectedId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            String username = jTable1.getValueAt(row, 1).toString();
+            String fullname = jTable1.getValueAt(row, 2).toString();
+
+            txtUsername.setText(username);
+            txtFullname.setText(fullname);
+            txtPassword.setText(""); // wajib isi ulang password jika mau edit
+
+            originalUsername = username;
+        }   
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -266,8 +438,8 @@ public class TambahKasir extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtHarga;
-    private javax.swing.JTextField txtNama;
-    private javax.swing.JTextField txtStock;
+    private javax.swing.JTextField txtFullname;
+    private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

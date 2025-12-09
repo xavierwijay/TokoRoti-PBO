@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement; 
+import javax.swing.table.DefaultTableModel; 
 
 public class UserController {
     private Connection conn;
@@ -84,6 +85,74 @@ public class UserController {
     } catch (SQLException e) {
         System.out.println("Buat akun user gagal: " + e.getMessage());
         return false;
+        }
+    }
+    
+    public DefaultTableModel getTableKasir() {
+        String[] kolom = {"ID", "Username", "Nama Kasir", "Role"};
+        DefaultTableModel model = new DefaultTableModel(null, kolom);
+
+        String sql = "SELECT user_id, username, fullname, role "
+                   + "FROM users WHERE role = 'cashier'";
+
+        try (Statement stm = conn.createStatement();
+             ResultSet rs = stm.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Object[] row = new Object[4];
+                row[0] = rs.getInt("user_id");
+                row[1] = rs.getString("username");
+                row[2] = rs.getString("fullname");
+                row[3] = rs.getString("role");
+                model.addRow(row);
+            }
+        } catch (SQLException e) {
+            System.out.println("Load kasir gagal: " + e.getMessage());
+        }
+
+        return model;
+    }
+
+    // Insert akun kasir baru
+    public boolean buatAkunKasir(String username, String fullname, String password) {
+        String sql = "INSERT INTO users (username, password, fullname, role) "
+                   + "VALUES (?, ?, ?, 'cashier')";
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, username.trim().toLowerCase());
+            pst.setString(2, password);
+            pst.setString(3, fullname.trim());
+            return pst.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Buat akun kasir gagal: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Update data kasir
+    public boolean updateKasir(int userId, String username, String fullname, String password) {
+        String sql = "UPDATE users SET username = ?, password = ?, fullname = ? "
+                   + "WHERE user_id = ? AND role = 'cashier'";
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, username.trim().toLowerCase());
+            pst.setString(2, password);
+            pst.setString(3, fullname.trim());
+            pst.setInt(4, userId);
+            return pst.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Update kasir gagal: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Hapus kasir
+    public boolean deleteKasir(int userId) {
+        String sql = "DELETE FROM users WHERE user_id = ? AND role = 'cashier'";
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, userId);
+            return pst.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Hapus kasir gagal: " + e.getMessage());
+            return false;
         }
     }
 }
