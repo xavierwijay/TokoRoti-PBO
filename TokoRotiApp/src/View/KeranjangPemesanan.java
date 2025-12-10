@@ -35,9 +35,8 @@ public class KeranjangPemesanan extends javax.swing.JFrame {
         tbKeranjangPemesanan.setRowSelectionAllowed(true);
         tbKeranjangPemesanan.setColumnSelectionAllowed(false);
 
-        // tidak dipakai lagi, jadi boleh dihapus atau dibiarkan saja
-        // jJadwal.setMinSelectableDate(new Date());
-
+        Controller.KeranjangController.getInstance().loadFromDatabaseForCurrentUser();
+        
         // Sembunyikan Nama Pesanan & Tanggal Ambil dari layout
         jLabel4.setVisible(false);      // label "Nama Pesanan"
         jScrollPane2.setVisible(false); // scroll jlPesanan
@@ -397,11 +396,10 @@ public class KeranjangPemesanan extends javax.swing.JFrame {
 
         int modelRow = tbKeranjangPemesanan.convertRowIndexToModel(viewRow);
 
-        javax.swing.table.DefaultTableModel dtm =
-            (javax.swing.table.DefaultTableModel) tbKeranjangPemesanan.getModel();
-        dtm.removeRow(modelRow);
+        // Hapus lewat controller supaya list & database ikut ter-update
+        KeranjangController.getInstance().hapusItem(modelRow);
 
-        // setelah hapus, hitung ulang total
+        // total akan otomatis ter-update karena tabel direfresh, tapi untuk aman:
         refreshTotal();
     }//GEN-LAST:event_bHapusActionPerformed
 

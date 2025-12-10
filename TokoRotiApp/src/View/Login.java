@@ -1,13 +1,13 @@
-                                                                                                                    /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import Controller.AdminController;
 import Model.Admin;
 import javax.swing.JOptionPane;
 
+import Config.Koneksi;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 /**
  *
  * @author LENOVO
@@ -22,7 +22,34 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
     }
+    
+    private void setSessionFor(String namaInput, String password, String role, boolean pakaiFullname) {
+        String kolom = pakaiFullname ? "fullname" : "username";
 
+        try (Connection conn = Koneksi.configDB()) {
+            String sql = "SELECT user_id, username, fullname " +
+                         "FROM users " +
+                         "WHERE " + kolom + " = ? AND password = ? AND role = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, namaInput);
+            ps.setString(2, password);
+            ps.setString(3, role);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int id          = rs.getInt("user_id");
+                    String username = rs.getString("username");
+                    String fullname = rs.getString("fullname");
+
+                    // simpan ke session
+                    Controller.SessionUser.set(id, username, fullname);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // tidak fatal untuk login, cuma session aja yang mungkin tidak keisi
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -212,58 +239,57 @@ public class Login extends javax.swing.JFrame {
 
     private void bttnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnLoginActionPerformed
         // TODO add your handling code here:
-    String namaInput = txtLNama.getText().trim();          // untuk Admin = fullname, untuk Kasir/User = username
-    String password  = new String(txtLPassword.getPassword());
+        String namaInput = txtLNama.getText().trim();          // Admin = fullname, Kasir/User = username
+        String password  = new String(txtLPassword.getPassword());
 
-    if (namaInput.isEmpty() || password.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Nama/Username dan Password wajib diisi.");
-        return;
-    }
-    
-    Controller.AdminController ac   = new Controller.AdminController();   // admin: fullname+pw
-    Controller.KasirController kc   = new Controller.KasirController();   // kasir: username+pw (role 'cashier')
-    Controller.UserController uc    = new Controller.UserController();    // user : username+pw (role 'customer')
-
-    try {
-        // 1) Admin (fullname + password)
-        if (ac.cekLogin(namaInput, password)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Login berhasil.");
-
-            // SIMPAN NAMA USER YANG LOGIN
-            Controller.SessionUser.setNamaUser(namaInput);
-
-            new View.AdminDashboard().setVisible(true);
-            this.dispose();
+        if (namaInput.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nama/Username dan Password wajib diisi.");
             return;
         }
+        
+        Controller.AdminController ac = new Controller.AdminController();   // admin: fullname+pw
+        Controller.KasirController kc = new Controller.KasirController();   // kasir: username+pw (role 'cashier')
+        Controller.UserController uc  = new Controller.UserController();    // user : username+pw (role 'customer')
 
-        // 2) Kasir (username + password, role cashier)
-        if (kc.cekLogin(namaInput, password)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Login berhasil.");
+        try {
+            // 1) Admin (fullname + password)
+            if (ac.cekLogin(namaInput, password)) {
+                // >>> DI SINI KITA ISI SESSION <<<
+                // admin login pakai kolom fullname
+                setSessionFor(namaInput, password, "admin", true);
 
-            // SIMPAN NAMA USER YANG LOGIN
-            Controller.SessionUser.setNamaUser(namaInput);
+                JOptionPane.showMessageDialog(this, "Login berhasil sebagai Admin.");
+                new View.AdminDashboard().setVisible(true);
+                this.dispose();
+                return;
+            }
 
-            new View.Transaksi().setVisible(true);
-            this.dispose();
-            return;
-        }
+            // 2) Kasir (username + password, role cashier)
+            if (kc.cekLogin(namaInput, password)) {
+                // kasir login pakai kolom username
+                setSessionFor(namaInput, password, "cashier", false);
 
-        // 3) User (username + password, role customer)
-        if (uc.cekLogin(namaInput, password)) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Login berhasil.");
+                JOptionPane.showMessageDialog(this, "Login berhasil sebagai Kasir.");
+                new View.Transaksi().setVisible(true);
+                this.dispose();
+                return;
+            }
 
-            // SIMPAN NAMA USER YANG LOGIN
-            Controller.SessionUser.setNamaUser(namaInput);
+            // 3) User (username + password, role customer)
+            if (uc.cekLogin(namaInput, password)) {
+                // customer login pakai kolom username
+                setSessionFor(namaInput, password, "customer", false);
 
-            new View.Home().setVisible(true);
-            this.dispose();
-            return;
-        }
-            javax.swing.JOptionPane.showMessageDialog(this, "Login gagal");
+                JOptionPane.showMessageDialog(this, "Login berhasil.");
+                new View.Home().setVisible(true);
+                this.dispose();
+                return;
+            }
+
+            JOptionPane.showMessageDialog(this, "Login gagal");
         } catch (Exception ex) {
             ex.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Login gagal" + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Login gagal: " + ex.getMessage());
         }
     }//GEN-LAST:event_bttnLoginActionPerformed
 

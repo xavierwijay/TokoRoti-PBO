@@ -1040,24 +1040,18 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     private void blistpesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blistpesananActionPerformed
         // TODO add your handling code here:
-        if (KeranjangController.getInstance().getItems().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Keranjang masih kosong");
+        // 1. LOAD DULU dari database untuk user yang sedang login
+        Controller.KeranjangController.getInstance().loadFromDatabaseForCurrentUser();
+
+        // 2. Kalau tetap kosong setelah di-load, baru kasih pesan
+        if (Controller.KeranjangController.getInstance().getItems().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Keranjang masih kosong.");
             return;
         }
 
-        int jawab = JOptionPane.showConfirmDialog(
-            this,
-            "Buka Keranjang Pemesanan?",
-            "Konfirmasi",
-            JOptionPane.YES_NO_OPTION
-        );
-
-        if (jawab == JOptionPane.YES_OPTION) {
-            View.KeranjangPemesanan k = new View.KeranjangPemesanan();
-            k.setLocationRelativeTo(this);
-            k.setVisible(true);
-            // optional: this.dispose();
-        }
+        // 3. Kalau ada isinya, buka jendela keranjang
+        new View.KeranjangPemesanan().setVisible(true);
+        this.dispose();    // kalau mau jendela Home tertutup
     }//GEN-LAST:event_blistpesananActionPerformed
 
     /**

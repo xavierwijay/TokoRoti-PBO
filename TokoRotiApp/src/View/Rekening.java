@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package View;
 
 import Controller.KeranjangController;
@@ -15,6 +11,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import utility.PdfStruk;
 
+// tambahan:
+import Config.Koneksi;
+import Controller.SessionUser;
+import Model.KeranjangPemesanan;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 /**
  *
  * @author LENOVO
@@ -33,7 +39,7 @@ public class Rekening extends javax.swing.JFrame {
         this.tanggalAmbil = tanggalAmbil;
 
         initComponents();                 // <-- cukup SEKALI
-        Gambar(Logo, "/View/logo besar.png");
+        Gambar(Logo, "/View/logo_besar.png");
         setLocationRelativeTo(null);
         setTitle("No. Rekening - Toko Roti SANDX");
 
@@ -42,6 +48,65 @@ public class Rekening extends javax.swing.JFrame {
     }
         public Rekening() {
         this("", new Date());  // <-- CHAIN ke konstruktor utama (field final terisi)
+    }
+
+    // Menyimpan transaksi + detail transaksi ke database
+    private void simpanTransaksiKeDatabase() throws SQLException {
+        // Ambil semua item di keranjang
+        List<KeranjangPemesanan> items = KeranjangController.getInstance().getItems();
+        if (items.isEmpty()) {
+            return; // tidak ada yang perlu disimpan
+        }
+
+        double total = KeranjangController.getInstance().getTotal();
+
+        try (Connection conn = Koneksi.configDB()) {
+            conn.setAutoCommit(false);
+
+            int transactionId = 0;
+
+            // 1. Insert ke tabel transactions
+            String sqlTrx = "INSERT INTO transactions(user_id, total_amount) VALUES (?, ?)";
+            try (PreparedStatement psTrx =
+                     conn.prepareStatement(sqlTrx, Statement.RETURN_GENERATED_KEYS)) {
+
+                // NOTE:
+                // nanti kalau SessionUser sudah menyimpan user_id:
+                // psTrx.setInt(1, SessionUser.getUserId());
+                // untuk sementara, user_id = NULL
+                psTrx.setInt(1, SessionUser.getUserId());
+                psTrx.setDouble(2, total);
+                psTrx.executeUpdate();
+
+                try (ResultSet rs = psTrx.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        transactionId = rs.getInt(1);
+                    }
+                }
+            }
+
+            if (transactionId == 0) {
+                throw new SQLException("Gagal mendapatkan ID transaksi baru.");
+            }
+
+            // 2. Insert ke tabel transaction_details untuk setiap item keranjang
+            String sqlDet =
+                "INSERT INTO transaction_details(transaction_id, product_id, quantity, subtotal) " +
+                "VALUES (?, ?, ?, ?)";
+
+            try (PreparedStatement psDet = conn.prepareStatement(sqlDet)) {
+                for (KeranjangPemesanan ki : items) {
+                    psDet.setInt(1, transactionId);
+                    psDet.setInt(2, ki.getProduct().getId());
+                    psDet.setInt(3, ki.getJumlahPesanan());
+                    psDet.setDouble(4, ki.getSubtotal());
+                    psDet.addBatch();
+                }
+                psDet.executeBatch();
+            }
+
+            conn.commit();
+        }
     }
 
         private void Gambar(javax.swing.JLabel label, String resourcePath) {
@@ -160,26 +225,41 @@ public class Rekening extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         try {
+        try {
+            // 1. SIMPAN TRANSAKSI KE DATABASE
+            //    -> masuk ke tabel transactions & transaction_details
+            simpanTransaksiKeDatabase();
+
+            // 2. Buat struk PDF seperti biasa
             File pdf = PdfStruk.buatStruk(namaPembeli, tanggalAmbil);
             JOptionPane.showMessageDialog(this,
-                "Struk tersimpan di:\n" + pdf.getAbsolutePath());
+                "Pembayaran berhasil.\nStruk tersimpan di:\n" + pdf.getAbsolutePath());
 
             if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(pdf); 
+                Desktop.getDesktop().open(pdf);
             }
 
+            // 3. Bersihkan keranjang di memory (dan kalau controller-mu
+            //    sudah sinkron ke tabel cart_items, DB keranjang juga ikut kosong)
             KeranjangController.getInstance().clear();
 
-            this.dispose();
+            // 4. Setelah bayar, kembali ke halaman KueUlangTahun
+            new KueUlangTahun().setVisible(true);
+            this.dispose();   // tutup jendela Rekening
 
+        } catch (java.sql.SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Gagal menyimpan transaksi ke database:\n" + ex.getMessage());
         } catch (IOException | DocumentException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this,
-                "Gagal membuat struk: " + ex.getMessage());
+                "Gagal membuat / membuka struk: " + ex.getMessage());
         } catch (Exception ex) {
-            System.getLogger(Rekening.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            System.getLogger(Rekening.class.getName())
+                  .log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(this,
+                "Terjadi kesalahan: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
