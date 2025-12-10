@@ -52,6 +52,67 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
             }
         });
     }
+    
+private void hapusTransaksiTerpilih() {
+    int row = jTable1.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Pilih transaksi dulu.");
+        return;
+    }
+
+    int konfirmasi = JOptionPane.showConfirmDialog(
+            this,
+            "Yakin ingin menghapus transaksi ini beserta semua detailnya?",
+            "Konfirmasi",
+            JOptionPane.YES_NO_OPTION
+    );
+
+    if (konfirmasi != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    int idTransaksi = (int) modelTransaksi.getValueAt(row, 0);
+
+    Connection conn = null;
+    try {
+        conn = Koneksi.configDB();
+        conn.setAutoCommit(false);
+
+        // hapus detail dulu
+        try (PreparedStatement psDet = conn.prepareStatement(
+                "DELETE FROM transaction_details WHERE transaction_id = ?")) {
+            psDet.setInt(1, idTransaksi);
+            psDet.executeUpdate();
+        }
+
+        // hapus header transaksi
+        try (PreparedStatement psTrx = conn.prepareStatement(
+                "DELETE FROM transactions WHERE transaction_id = ?")) {
+            psTrx.setInt(1, idTransaksi);
+            psTrx.executeUpdate();
+        }
+
+        conn.commit();
+
+        // hapus dari tabel tampilan
+        modelTransaksi.removeRow(row);
+        modelDetail.setRowCount(0);
+
+        JOptionPane.showMessageDialog(this, "Transaksi berhasil dihapus.");
+    } catch (SQLException ex) {
+        if (conn != null) {
+            try { conn.rollback(); } catch (SQLException e1) { /* ignore */ }
+        }
+        logger.log(java.util.logging.Level.SEVERE, "Gagal menghapus transaksi", ex);
+        JOptionPane.showMessageDialog(this,
+                "Gagal menghapus transaksi dari database:\n" + ex.getMessage());
+    } finally {
+        if (conn != null) {
+            try { conn.setAutoCommit(true); } catch (SQLException e1) { /* ignore */ }
+        }
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,10 +205,15 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TRANSFER", "TUNAI" }));
 
-        jButton1.setBackground(new java.awt.Color(193, 135, 79));
+        jButton1.setBackground(new java.awt.Color(153, 0, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Kofirmasi Pembayaran");
+        jButton1.setText("Hapus");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -181,8 +247,8 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(125, 125, 125)
-                                .addComponent(jButton1)
+                                .addGap(207, 207, 207)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(bttnKembali))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 778, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -247,6 +313,11 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         ad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_bttnKembaliActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        hapusTransaksiTerpilih();      
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
