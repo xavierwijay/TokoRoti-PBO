@@ -25,6 +25,7 @@ public class MakananController {
             this.dtm.addColumn("Nama Makanan");
             this.dtm.addColumn("Jenis");
             this.dtm.addColumn("Harga");
+            this.dtm.addColumn("Stock");
             
             return this.dtm;
         }
@@ -43,11 +44,12 @@ public class MakananController {
                 
                 //masukkan
                 while(res.next()){
-                    Object[] obj = new Object[4];
-                    obj[0] = res.getString("id");
-                    obj[1] = res.getString("nama");
-                    obj[2] = res.getString("jenis");
-                    obj[3] = res.getString("harga");
+                    Object[] obj = new Object[5];
+                    obj[0] = res.getString("product_id");
+                    obj[1] = res.getString("name");
+                    obj[2] = res.getString("category");
+                    obj[3] = res.getString("price");
+                    obj[4] = res.getString("stock");
                     this.dtm.addRow(obj);
                 }
             } catch (Exception e) {
