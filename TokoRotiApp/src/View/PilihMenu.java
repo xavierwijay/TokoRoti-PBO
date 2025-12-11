@@ -31,11 +31,9 @@ public class PilihMenu extends javax.swing.JFrame {
     DefaultTableModel dtm = uc.createTable();
     this.tableMakan.setModel(dtm);
 
-    // ---- Spinner setup ----
     spinnerJumlah.setModel(new SpinnerNumberModel(1, 1, 999, 1));
     ((JSpinner.DefaultEditor) spinnerJumlah.getEditor()).getTextField().setEditable(false);
 
-    // ---- Tambahkan listener DISINI ----
     spinnerJumlah.addChangeListener(e -> {
         int v = (int) spinnerJumlah.getValue();
         if(v < 1){
@@ -273,15 +271,10 @@ public void refreshTable() throws SQLException {
 
     private void tableMakanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMakanMouseClicked
         // TODO add your handling code here:
-        //ini coding untuk get data dari tabel yang di klik
-        //1. siapkan dtm baru
         DefaultTableModel dtm2 = (DefaultTableModel) this.tableMakan.getModel();
         
-        //2. ambil nilai 1 baris dari data yg di klik
         int pilih = this.tableMakan.getSelectedRow();
         
-        //3. data sebaris yg terambil di pasang di texfield
-        //dgn catatan baris = var pilih, kolom = 0 - 4  
         this.jLabel2.setText(dtm2.getValueAt(pilih, 1).toString());
         this.lblHarga.setText(dtm2.getValueAt(pilih, 3).toString());
         this.lblId.setText(dtm2.getValueAt(pilih, 0).toString());
@@ -297,18 +290,16 @@ public void refreshTable() throws SQLException {
             
             MakananController mc = new MakananController();
 
-            // Jika stok gagal diupdate → JANGAN LANJUT
             boolean sukses = mc.updateStock(id, jml);
 
             if (!sukses) {
-                return; // ⛔ STOP! Jangan tambah ke transaksi
+                return;
             }
 
             refreshTable();
-            // VALIDASI
             if(jml <= 0){
                 javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus lebih dari 0!");
-                return;   // <-- wajib
+                return;
             }
 
             DefaultTableModel model = Transaksi.tableTransaksiModel;
@@ -327,7 +318,6 @@ public void refreshTable() throws SQLException {
 
                     model.setValueAt(jumlahBaru, i, 2);
 
-                    // update total kolom 4
                     double subtotal = jumlahBaru * harga;
                     model.setValueAt(subtotal, i, 4);
 
@@ -351,10 +341,8 @@ public void refreshTable() throws SQLException {
                 model.addRow(row);
             }
 
-            // **JANGAN bikin Transaksi baru**
             this.dispose();
 
-            // update total di instance yang sudah ada
                     Transaksi tr = new Transaksi();
                     tr.setVisible(true);
                     tr.hitungTotal();

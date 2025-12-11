@@ -48,7 +48,6 @@ public class Transaksi extends javax.swing.JFrame {
                 new String[]{"ID", "Nama", "Jumlah", "Harga", "Total"}
         );
 
-        // *** TAMPILKAN NAMA KASIR DARI SESSION (fullname) ***
         String namaKasir = SessionUser.getNamaUser(); // fullname yang diset waktu login
         if (namaKasir != null && !namaKasir.isEmpty()) {
             jTextField1.setText(namaKasir);
@@ -433,8 +432,6 @@ public class Transaksi extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        // 1. Validasi keranjang
-        // 1. Validasi keranjang
         if (tableTransaksiModel.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Keranjang masih kosong.");
             return;
@@ -475,13 +472,11 @@ public class Transaksi extends javax.swing.JFrame {
             conn = Koneksi.configDB();
             conn.setAutoCommit(false);
 
-            // 2. Ambil user_id langsung dari SessionUser (TIDAK QUERY LAGI KE users)
             int userId = SessionUser.getUserId();
             if (userId <= 0) {
                 throw new SQLException("User ID di SessionUser tidak valid. Silakan login ulang.");
             }
 
-            // 3. Insert ke tabel transactions
             int idTransaksiBaru;
             String sqlTrx = "INSERT INTO transactions (user_id, transaction_date, total_amount) VALUES (?, ?, ?)";
             try (PreparedStatement psTrx = conn.prepareStatement(sqlTrx, Statement.RETURN_GENERATED_KEYS)) {
@@ -499,7 +494,6 @@ public class Transaksi extends javax.swing.JFrame {
                 }
             }
 
-            // 4. Insert ke tabel transaction_details
             String sqlDet = "INSERT INTO transaction_details (transaction_id, product_id, quantity, subtotal) " +
                             "VALUES (?, ?, ?, ?)";
             try (PreparedStatement psDet = conn.prepareStatement(sqlDet)) {
@@ -519,7 +513,6 @@ public class Transaksi extends javax.swing.JFrame {
 
             conn.commit();
 
-            // 5. Buat PDF struk dengan iText
             buatPdfStruk(idTransaksiBaru, kasir, tanggal, metode, total, uangUser);
 
             JOptionPane.showMessageDialog(this,
@@ -527,14 +520,13 @@ public class Transaksi extends javax.swing.JFrame {
                     "Info",
                     JOptionPane.INFORMATION_MESSAGE);
 
-            // 6. Bersihkan form
             tableTransaksiModel.setRowCount(0);
             hitungTotal();
             jTextField3.setText("");
 
         } catch (Exception ex) {
             if (conn != null) {
-                try { conn.rollback(); } catch (SQLException e1) { /* ignore */ }
+                try { conn.rollback(); } catch (SQLException e1) {  }
             }
             logger.log(java.util.logging.Level.SEVERE, "Gagal menyimpan transaksi / membuat struk", ex);
             JOptionPane.showMessageDialog(this,
@@ -546,7 +538,7 @@ public class Transaksi extends javax.swing.JFrame {
                 try {
                     conn.setAutoCommit(true);
                     conn.close();
-                } catch (SQLException e1) { /* ignore */ }
+                } catch (SQLException e1) {  }
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -554,7 +546,6 @@ public class Transaksi extends javax.swing.JFrame {
     private void buatPdfStruk(int idTransaksi, String kasir, Date tanggal,
         String metode, double total, double uangUser) throws Exception {
 
-        // 3. Siapkan file PDF tujuan
         SimpleDateFormat sdfFile = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String timeStamp = sdfFile.format(new Date());
 
@@ -565,7 +556,6 @@ public class Transaksi extends javax.swing.JFrame {
 
         File pdfFile = new File(folder, "struk_" + timeStamp + ".pdf");
 
-        // 4. Buat PDF dengan iText
         SimpleDateFormat sdfTgl = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 
         Document doc = new Document();

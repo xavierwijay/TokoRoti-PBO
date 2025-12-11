@@ -828,28 +828,25 @@ private static String formatRupiah(double v) {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(201, "Roti Bawang", 25000.0, 0, "roti", "/View/garlic.png"); // ID & harga sesuaikan
+    Product p = new Product(201, "Roti Bawang", 25000.0, 0, "roti", "/View/garlic.png");
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jRotiBawang.setValue(0); // reset
+    jRotiBawang.setValue(0);
 
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void blistpesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blistpesananActionPerformed
         // TODO add your handling code here:
-        // 1. LOAD DULU dari database untuk user yang sedang login
         Controller.KeranjangController.getInstance().loadFromDatabaseForCurrentUser();
 
-        // 2. Kalau tetap kosong setelah di-load, baru kasih pesan
         if (Controller.KeranjangController.getInstance().getItems().isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Keranjang masih kosong.");
             return;
         }
 
-        // 3. Kalau ada isinya, buka jendela keranjang
         new View.KeranjangPemesanan().setVisible(true);
-        this.dispose();    // kalau mau jendela Home tertutup
+        this.dispose(); 
     }//GEN-LAST:event_blistpesananActionPerformed
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
@@ -859,11 +856,11 @@ private static String formatRupiah(double v) {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(202, "Roti Isi Ayam", 15000.0, 0, "roti", "/View/roti isi.png"); // ID & harga sesuaikan
+    Product p = new Product(202, "Roti Isi Ayam", 15000.0, 0, "roti", "/View/roti isi.png"); 
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jRotiIsiAyam.setValue(0); // reset
+    jRotiIsiAyam.setValue(0); 
     }//GEN-LAST:event_jButton37ActionPerformed
 
     private void jButton38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton38ActionPerformed
@@ -873,11 +870,11 @@ private static String formatRupiah(double v) {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(203, "Roti Sobek", 13000.0, 0, "roti", "/View/roti sobek.png"); // ID & harga sesuaikan
+    Product p = new Product(203, "Roti Sobek", 13000.0, 0, "roti", "/View/roti sobek.png");
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jRotiSobek.setValue(0); // reset
+    jRotiSobek.setValue(0);
     }//GEN-LAST:event_jButton38ActionPerformed
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
@@ -887,11 +884,11 @@ private static String formatRupiah(double v) {
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(204, "Roti Tawar", 22000.0, 0, "roti", "/View/roti tawar.png"); // ID & harga sesuaikan
+    Product p = new Product(204, "Roti Tawar", 22000.0, 0, "roti", "/View/roti tawar.png");
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jRotiTawar.setValue(0); // reset
+    jRotiTawar.setValue(0);
     }//GEN-LAST:event_jButton39ActionPerformed
 
     /**

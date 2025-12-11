@@ -14,8 +14,6 @@ public class Logout {
         );
 
         if (confirm == JOptionPane.YES_OPTION) {
-            // kalau punya session, bisa clear di sini
-            // Controller.SessionUser.clear();
 
             new Login().setVisible(true);
             currentFrame.dispose();

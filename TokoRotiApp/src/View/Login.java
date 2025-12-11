@@ -252,10 +252,7 @@ public class Login extends javax.swing.JFrame {
         Controller.UserController uc  = new Controller.UserController();    // user : username+pw (role 'customer')
 
         try {
-            // 1) Admin (fullname + password)
             if (ac.cekLogin(namaInput, password)) {
-                // >>> DI SINI KITA ISI SESSION <<<
-                // admin login pakai kolom fullname
                 setSessionFor(namaInput, password, "admin", true);
 
                 JOptionPane.showMessageDialog(this, "Login berhasil sebagai Admin.");
@@ -264,9 +261,7 @@ public class Login extends javax.swing.JFrame {
                 return;
             }
 
-            // 2) Kasir (username + password, role cashier)
             if (kc.cekLogin(namaInput, password)) {
-                // kasir login pakai kolom username
                 setSessionFor(namaInput, password, "cashier", false);
 
                 JOptionPane.showMessageDialog(this, "Login berhasil sebagai Kasir.");
@@ -275,9 +270,7 @@ public class Login extends javax.swing.JFrame {
                 return;
             }
 
-            // 3) User (username + password, role customer)
             if (uc.cekLogin(namaInput, password)) {
-                // customer login pakai kolom username
                 setSessionFor(namaInput, password, "customer", false);
 
                 JOptionPane.showMessageDialog(this, "Login berhasil.");

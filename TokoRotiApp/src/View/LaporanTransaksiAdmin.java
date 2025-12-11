@@ -52,7 +52,7 @@ public class LaporanTransaksiAdmin extends javax.swing.JFrame {
             label.setIcon(new ImageIcon(image));
         }
 
-        // ======== Inisialisasi model tabel laporan ========
+
         private void initTableModel() {
             modelLaporan = new DefaultTableModel(
                     new Object[]{"ID", "Tanggal", "Nama", "Role", "Total"}, 0) {
@@ -64,7 +64,7 @@ public class LaporanTransaksiAdmin extends javax.swing.JFrame {
             jTable1.setModel(modelLaporan);
         }
 
-        // ======== Load semua transaksi + hitung total pemasukan ========
+
         private void loadDataLaporan() {
             modelLaporan.setRowCount(0);
             totalPemasukan = 0.0;
@@ -334,14 +334,14 @@ public class LaporanTransaksiAdmin extends javax.swing.JFrame {
             conn = Koneksi.configDB();
             conn.setAutoCommit(false);
 
-            // 1. Hapus detail terlebih dahulu
+
             try (PreparedStatement psDet = conn.prepareStatement(
                     "DELETE FROM transaction_details WHERE transaction_id = ?")) {
                 psDet.setInt(1, idTransaksi);
                 psDet.executeUpdate();
             }
 
-            // 2. Hapus header transaksi
+
             try (PreparedStatement psTrx = conn.prepareStatement(
                     "DELETE FROM transactions WHERE transaction_id = ?")) {
                 psTrx.setInt(1, idTransaksi);
@@ -367,7 +367,6 @@ public class LaporanTransaksiAdmin extends javax.swing.JFrame {
             }
         }
 
-        // reload tabel + hitung ulang total pemasukan (realtime)
         loadDataLaporan();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -390,7 +389,7 @@ public class LaporanTransaksiAdmin extends javax.swing.JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this,
                 "Gagal membuat laporan PDF:\n" + ex.getMessage());
-        } catch (Throwable ex) {  // supaya NoClassDefFoundError / error lain juga kelihatan
+        } catch (Throwable ex) { 
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this,
                 "Terjadi kesalahan saat mencetak laporan:\n"

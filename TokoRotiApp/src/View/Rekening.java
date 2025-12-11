@@ -33,12 +33,11 @@ public class Rekening extends javax.swing.JFrame {
     private final String namaPembeli;
     private final Date   tanggalAmbil;
 
-    // Konstruktor utama
     public Rekening(String namaPembeli, Date tanggalAmbil) {
         this.namaPembeli  = namaPembeli;
         this.tanggalAmbil = tanggalAmbil;
 
-        initComponents();                 // <-- cukup SEKALI
+        initComponents();             
         Gambar(Logo, "/View/logo_besar.png");
         setLocationRelativeTo(null);
         setTitle("No. Rekening - Toko Roti SANDX");
@@ -47,15 +46,13 @@ public class Rekening extends javax.swing.JFrame {
         
     }
         public Rekening() {
-        this("", new Date());  // <-- CHAIN ke konstruktor utama (field final terisi)
+        this("", new Date()); 
     }
 
-    // Menyimpan transaksi + detail transaksi ke database
     private void simpanTransaksiKeDatabase() throws SQLException {
-        // Ambil semua item di keranjang
         List<KeranjangPemesanan> items = KeranjangController.getInstance().getItems();
         if (items.isEmpty()) {
-            return; // tidak ada yang perlu disimpan
+            return; 
         }
 
         double total = KeranjangController.getInstance().getTotal();
@@ -65,15 +62,10 @@ public class Rekening extends javax.swing.JFrame {
 
             int transactionId = 0;
 
-            // 1. Insert ke tabel transactions
             String sqlTrx = "INSERT INTO transactions(user_id, total_amount) VALUES (?, ?)";
             try (PreparedStatement psTrx =
                      conn.prepareStatement(sqlTrx, Statement.RETURN_GENERATED_KEYS)) {
 
-                // NOTE:
-                // nanti kalau SessionUser sudah menyimpan user_id:
-                // psTrx.setInt(1, SessionUser.getUserId());
-                // untuk sementara, user_id = NULL
                 psTrx.setInt(1, SessionUser.getUserId());
                 psTrx.setDouble(2, total);
                 psTrx.executeUpdate();
@@ -89,7 +81,6 @@ public class Rekening extends javax.swing.JFrame {
                 throw new SQLException("Gagal mendapatkan ID transaksi baru.");
             }
 
-            // 2. Insert ke tabel transaction_details untuk setiap item keranjang
             String sqlDet =
                 "INSERT INTO transaction_details(transaction_id, product_id, quantity, subtotal) " +
                 "VALUES (?, ?, ?, ?)";
@@ -226,11 +217,8 @@ public class Rekening extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            // 1. SIMPAN TRANSAKSI KE DATABASE
-            //    -> masuk ke tabel transactions & transaction_details
             simpanTransaksiKeDatabase();
 
-            // 2. Buat struk PDF seperti biasa
             File pdf = PdfStruk.buatStruk(namaPembeli, tanggalAmbil);
             JOptionPane.showMessageDialog(this,
                 "Pembayaran berhasil.\nStruk tersimpan di:\n" + pdf.getAbsolutePath());
@@ -239,14 +227,10 @@ public class Rekening extends javax.swing.JFrame {
                 Desktop.getDesktop().open(pdf);
             }
 
-            // 3. Bersihkan keranjang di memory (dan kalau controller-mu
-            //    sudah sinkron ke tabel cart_items, DB keranjang juga ikut kosong)
             KeranjangController.getInstance().clear();
 
-            // 4. Setelah bayar, kembali ke halaman KueUlangTahun
             new KueUlangTahun().setVisible(true);
-            this.dispose();   // tutup jendela Rekening
-
+            this.dispose();
         } catch (java.sql.SQLException ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this,
