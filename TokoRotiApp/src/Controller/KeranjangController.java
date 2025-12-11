@@ -28,9 +28,9 @@ public class KeranjangController {
 
         @Override
         public Class<?> getColumnClass(int c) {
-            if (c == 1 || c == 3) return Double.class; // Harga, Subtotal
-            if (c == 2) return Integer.class;         // Jumlah
-            return String.class;                      // Nama
+            if (c == 1 || c == 3) return Double.class; 
+            if (c == 2) return Integer.class;         
+            return String.class;                      
         }
     };
 
@@ -51,13 +51,7 @@ public class KeranjangController {
         return items;
     }
 
-    // ====== RESOLVE user_id dari SessionUser ATAU tabel users ======
-
-    /**
-     * Kalau SessionUser.getUserId() sudah > 0, langsung pakai itu.
-     * Kalau belum, cari ke tabel users berdasarkan username/fullname
-     * yang disimpan di SessionUser.getNamaUser().
-     */
+    
     private int resolveCurrentUserId() {
         int id = SessionUser.getUserId();
         if (id > 0) return id;
@@ -81,7 +75,7 @@ public class KeranjangController {
                     String username = rs.getString("username");
                     String fullname = rs.getString("fullname");
 
-                    // simpan ke SessionUser supaya next time tidak perlu query lagi
+                    
                     SessionUser.set(id, username, fullname);
                 }
             }
@@ -92,12 +86,10 @@ public class KeranjangController {
         return id;
     }
 
-    // pakai helper di atas
     private int getCurrentUserId() {
         return resolveCurrentUserId();
     }
 
-    // ========= operasi di keranjang (memory + DB) =========
 
     public void tambahItem(Product p, int jumlahPesanan) {
         if (p == null || jumlahPesanan <= 0) return;
@@ -150,9 +142,6 @@ public class KeranjangController {
         }
     }
 
-    // ========= sinkron ke tabel cart_items =========
-
-    // dipanggil setelah user login / saat buka form KeranjangPemesanan
     public void loadFromDatabaseForCurrentUser() {
         items.clear();
 

@@ -20,7 +20,6 @@ public class AdminController {
 
     private static String esc(String s) { return s == null ? "" : s.replace("'", "''").trim(); }
 
-    // ADMIN: fullname + password
     public boolean cekLogin(String un, String pw) {
         Admin adm = new Admin();
         adm.setFullname(un);

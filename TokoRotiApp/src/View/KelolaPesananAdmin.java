@@ -30,8 +30,7 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         initComponents();
         GambarLogo(Logo, "/View/logo_besar.png");
 
-        // sembunyikan komponen yang tidak dipakai:
-        // tanggal, nama pemesan, total harga, metode pembayaran
+
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
@@ -39,19 +38,16 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         jTextField2.setVisible(false);
         jTextField3.setVisible(false);
         jComboBox1.setVisible(false);
-        // jButton1 = tombol HAPUS -> jangan disembunyikan
 
-        // inisialisasi model tabel
+
         initTableModels();
 
-        // isi data transaksi dari database
         loadDataTransaksi();
 
         loadDataTransaksi();
         loadDataTransaksiCustomer();
     }
 
-    // ===================== UTIL LOGO =====================
     private void GambarLogo(javax.swing.JLabel label, String resourcePath) {
         ImageIcon imgIco = new ImageIcon(getClass().getResource(resourcePath));
         Image image = imgIco.getImage().getScaledInstance(
@@ -62,19 +58,18 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         label.setIcon(new ImageIcon(image));
     }
 
-    // ===================== TABLE MODEL =====================
     private void initTableModels() {
         // tabel transaksi kasir (atas)
         modelTransaksi = new DefaultTableModel(
                 new Object[]{"ID", "Tanggal", "Kasir", "Total", "Metode"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // tidak bisa diedit langsung dari tabel
+                return false; 
             }
         };
         jTable1.setModel(modelTransaksi);
 
-        // tabel transaksi customer (bawah)
+
         modelDetail = new DefaultTableModel(
                 new Object[]{"ID", "Tanggal", "Customer", "Total", "Metode"}, 0) {
             @Override
@@ -85,20 +80,18 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         jTable2.setModel(modelDetail);
     }
 
-    // ===================== LOAD DATA HEADER TRANSAKSI =====================
     private void loadDataTransaksi() {
-        // bersihkan tabel kasir dulu
         modelTransaksi.setRowCount(0);
 
         String sql =
             "SELECT t.transaction_id, " +
-            "       t.transaction_date, " +          // kolom di tabel transactions
-            "       u.fullname AS kasir, " +         // kolom di tabel users
-            "       t.total_amount, " +              // kolom di tabel transactions
-            "       t.payment_method " +             // kolom di tabel transactions
+            "       t.transaction_date, " +          
+            "       u.fullname AS kasir, " +         
+            "       t.total_amount, " +              
+            "       t.payment_method " +             
             "FROM transactions t " +
             "JOIN users u ON t.user_id = u.user_id " +
-            "WHERE u.role = 'cashier' " +            // HANYA KASIR
+            "WHERE u.role = 'cashier' " +            
             "ORDER BY t.transaction_date DESC";
 
         java.text.SimpleDateFormat sdf =
@@ -118,7 +111,6 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
                 double total  = rs.getDouble("total_amount");
                 String metode = rs.getString("payment_method");
 
-                // urutannya sama dengan kolom modelTransaksi
                 modelTransaksi.addRow(new Object[]{
                     idTransaksi, tgl, kasir, total, metode
                 });
@@ -132,9 +124,8 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         }
     }
     
-    // ===================== LOAD DATA TRANSAKSI CUSTOMER (TABEL BAWAH) =====================
+
     private void loadDataTransaksiCustomer() {
-        // bersihkan tabel customer dulu
         modelDetail.setRowCount(0);
 
         String sql =
@@ -145,7 +136,7 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
             "       t.payment_method " +
             "FROM transactions t " +
             "JOIN users u ON t.user_id = u.user_id " +
-            "WHERE u.role = 'customer' " +               // HANYA CUSTOMER
+            "WHERE u.role = 'customer' " +               
             "ORDER BY t.transaction_date DESC";
 
         java.text.SimpleDateFormat sdf =
@@ -165,7 +156,6 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
                 double total     = rs.getDouble("total_amount");
                 String metode    = rs.getString("payment_method");
 
-                // urutannya sama dengan kolom modelDetail
                 modelDetail.addRow(new Object[]{
                     idTransaksi, tgl, customer, total, metode
                 });
@@ -180,7 +170,6 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
     }
 
 
-    // ===================== HAPUS TRANSAKSI =====================
     private void hapusTransaksiTerpilih() {
     int rowKasir = jTable1.getSelectedRow();  // tabel atas
     int rowCust  = jTable2.getSelectedRow();  // tabel bawah
@@ -195,7 +184,6 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         return;
     }
 
-    // Tentukan transaksi dari tabel mana yang akan dihapus
     boolean dariKasir = (rowKasir >= 0);
 
     javax.swing.JTable tabel;
@@ -204,18 +192,16 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
 
     if (dariKasir) {
         tabel   = jTable1;
-        model   = modelTransaksi; // model tabel atas
+        model   = modelTransaksi;
         viewRow = rowKasir;
     } else {
         tabel   = jTable2;
-        model   = modelDetail;    // model tabel bawah (customer)
+        model   = modelDetail;
         viewRow = rowCust;
     }
 
-    // Konversi index tampilan -> index di model (kalau pakai sort)
     int modelRow = tabel.convertRowIndexToModel(viewRow);
 
-    // Kolom 0 = ID transaksi
     Object valId = model.getValueAt(modelRow, 0);
     int idTransaksi;
     try {
@@ -244,14 +230,12 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
         conn = Koneksi.configDB();
         conn.setAutoCommit(false);
 
-        // 1. Hapus detail transaksi dulu
         try (PreparedStatement psDet = conn.prepareStatement(
                 "DELETE FROM transaction_details WHERE transaction_id = ?")) {
             psDet.setInt(1, idTransaksi);
             psDet.executeUpdate();
         }
 
-        // 2. Hapus header transaksi
         try (PreparedStatement psTrx = conn.prepareStatement(
                 "DELETE FROM transactions WHERE transaction_id = ?")) {
             psTrx.setInt(1, idTransaksi);
@@ -260,9 +244,8 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
 
         conn.commit();
 
-        // 3. Refresh kedua tabel supaya sinkron (atas & bawah)
-        loadDataTransaksi();          // kasir
-        loadDataTransaksiCustomer();  // customer
+        loadDataTransaksi();          
+        loadDataTransaksiCustomer();  
 
         JOptionPane.showMessageDialog(this, "Transaksi berhasil dihapus.");
     } catch (SQLException ex) {
@@ -270,7 +253,6 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
             try {
                 conn.rollback();
             } catch (SQLException e1) {
-                // ignore
             }
         }
         logger.log(java.util.logging.Level.SEVERE, "Gagal menghapus transaksi", ex);
@@ -284,13 +266,11 @@ public class KelolaPesananAdmin extends javax.swing.JFrame {
                 conn.setAutoCommit(true);
                 conn.close();
             } catch (SQLException e) {
-                // ignore
             }
         }
     }
     }
 
-    // ===================== LOAD DETAIL TRANSAKSI =====================
     private void tampilkanDetailTransaksiTerpilih() {
         int row = jTable1.getSelectedRow();
         if (row == -1) {

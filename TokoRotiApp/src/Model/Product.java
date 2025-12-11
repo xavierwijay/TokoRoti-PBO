@@ -8,11 +8,9 @@ public class Product {
     private String category;
     private String imagePath; 
 
-    // Constructor Kosong
     public Product() {
     }
 
-    // Constructor Lengkap
     public Product(int id, String name, double price, int stock, String category, String imagePath) {
         this.id = id;
         this.name = name;

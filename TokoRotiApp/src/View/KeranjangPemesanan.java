@@ -37,19 +37,17 @@ public class KeranjangPemesanan extends javax.swing.JFrame {
 
         Controller.KeranjangController.getInstance().loadFromDatabaseForCurrentUser();
         
-        // Sembunyikan Nama Pesanan & Tanggal Ambil dari layout
-        jLabel4.setVisible(false);      // label "Nama Pesanan"
-        jScrollPane2.setVisible(false); // scroll jlPesanan
+        jLabel4.setVisible(false);      
+        jScrollPane2.setVisible(false); 
         jlPesanan.setVisible(false);
 
-        jLabel6.setVisible(false);      // label "Tanggal Ambil"
-        jJadwal.setVisible(false);      // date chooser
+        jLabel6.setVisible(false);      
+        jJadwal.setVisible(false);     
 
-        // === ISI OTOMATIS NAMA PEMBELI DARI USER YANG LOGIN ===
         String namaLogin = Controller.SessionUser.getNamaUser();
         if (namaLogin != null && !namaLogin.isEmpty()) {
             txtNamaPembeli.setText(namaLogin);
-            txtNamaPembeli.setEditable(false);   // supaya user tidak perlu & tidak bisa ubah lagi
+            txtNamaPembeli.setEditable(false);  
         }
 
         txtTotal.setEditable(false);
@@ -85,8 +83,6 @@ public class KeranjangPemesanan extends javax.swing.JFrame {
             javax.swing.table.TableModel model = tbKeranjangPemesanan.getModel();
             int rowCount = model.getRowCount();
 
-            // MISAL kolom ke-4 (index 3) adalah kolom total/harga
-            // kalau beda, ganti angka 3 dengan index kolom yang benar
             int HARGA_COLUMN_INDEX = 3;
 
             for (int row = 0; row < rowCount; row++) {
@@ -365,7 +361,6 @@ public class KeranjangPemesanan extends javax.swing.JFrame {
             return;
         }
 
-        // tanggal ambil otomatis (kalau Rekening masih butuh Date)
         Date tglAmbil = new Date();
 
         try {
@@ -396,10 +391,8 @@ public class KeranjangPemesanan extends javax.swing.JFrame {
 
         int modelRow = tbKeranjangPemesanan.convertRowIndexToModel(viewRow);
 
-        // Hapus lewat controller supaya list & database ikut ter-update
         KeranjangController.getInstance().hapusItem(modelRow);
 
-        // total akan otomatis ter-update karena tabel direfresh, tapi untuk aman:
         refreshTotal();
     }//GEN-LAST:event_bHapusActionPerformed
 

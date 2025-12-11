@@ -9,13 +9,11 @@ public class Koneksi {
         
     
     public static Connection configDB() throws SQLException {
-        try {
-            // Ini alamat database kamu
+        try {         
             String url = "jdbc:mysql://localhost:3306/db_tokoroti"; 
-            String user = "root"; // User default XAMPP
-            String pass = "";     // Password default XAMPP (biasanya kosong)
+            String user = "root"; 
+            String pass = "";     
             
-            // Panggil driver MySQL yang baru (pake cj)
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             mysqlconfig = DriverManager.getConnection(url, user, pass);
             

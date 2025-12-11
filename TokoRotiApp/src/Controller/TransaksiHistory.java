@@ -5,13 +5,12 @@ import java.util.Date;
 
 public class TransaksiHistory {
 
-    // model untuk tabel di KelolaPesananAdmin
     private static final DefaultTableModel HISTORI_MODEL = new DefaultTableModel(
             new Object[]{"ID", "Tanggal", "Nama Kasir", "Total", "Metode"}, 0
     ) {
         @Override
         public boolean isCellEditable(int row, int column) {
-            return false; // admin hanya lihat
+            return false; 
         }
     };
 

@@ -1,18 +1,15 @@
 package Model;
 
 public class User {
-    // 1. Atribut (sesuai kolom database)
     private int id;
     private String username;
     private String password;
     private String fullname;
-    private String role; // admin, cashier, customer
+    private String role; 
 
-    // 2. Constructor Kosong
     public User() {
     }
 
-    // 3. Constructor Lengkap (untuk mengisi data sekaligus)
     public User(int id, String username, String password, String fullname, String role) {
         this.id = id;
         this.username = username;
@@ -21,7 +18,6 @@ public class User {
         this.role = role;
     }
 
-    // 4. Getter & Setter (Wajib ada biar data bisa diambil/diisi)
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

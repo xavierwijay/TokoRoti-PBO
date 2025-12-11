@@ -8,9 +8,8 @@ import java.util.List;
 
 public class ProductController {
     
-    // 1. FITUR TAMBAH ROTI (CREATE) - Masuk ke tbmakanan
+    //FITUR TAMBAH ROTI
     public void tambahData(Product p) {
-        // PERUBAHAN DISINI: Menggunakan tbmakanan dan kolom image_path
         String sql = "INSERT INTO tbmakanan (name, price, stock, category, image_path) VALUES (?, ?, ?, ?, ?)";
         
         try {
@@ -22,8 +21,6 @@ public class ProductController {
             pst.setInt(3, p.getStock());
             pst.setString(4, p.getCategory());
             
-            // Pastikan di Model Product sudah ada method getImagePath()
-            // Jika belum ada, ganti dengan string kosong "" dulu: pst.setString(5, "");
             pst.setString(5, p.getImagePath()); 
             
             pst.execute();
@@ -33,9 +30,8 @@ public class ProductController {
         }
     }
 
-    // 2. FITUR EDIT ROTI (UPDATE)
+    //FITUR EDIT ROTI
     public void editData(Product p) {
-        // Query Update: Ubah nama, harga, stok, kategori, gambar BERDASARKAN product_id
         String sql = "UPDATE tbmakanan SET name=?, price=?, stock=?, category=?, image_path=? WHERE product_id=?";
         
         try {
@@ -48,7 +44,6 @@ public class ProductController {
             pst.setString(4, p.getCategory());
             pst.setString(5, p.getImagePath());
             
-            // ID ditaruh di tanda tanya terakhir (WHERE product_id=?)
             pst.setInt(6, p.getId());
             
             pst.executeUpdate();
@@ -59,9 +54,8 @@ public class ProductController {
         }
     }
 
-    // 3. FITUR HAPUS ROTI (DELETE)
+    //FITUR HAPUS ROTI
     public void hapusData(int id) {
-        // Hapus berdasarkan product_id
         String sql = "DELETE FROM tbmakanan WHERE product_id=?";
         
         try {
@@ -75,10 +69,9 @@ public class ProductController {
         }
     }
 
-    // 4. FITUR AMBIL SEMUA DATA (READ)
+    //FITUR READ
     public List<Product> ambilSemuaData() {
         List<Product> listProduct = new ArrayList<>();
-        // Ambil semua dari tbmakanan
         String sql = "SELECT * FROM tbmakanan"; 
         
         try {
@@ -87,7 +80,6 @@ public class ProductController {
             ResultSet rs = stm.executeQuery(sql);
             
             while(rs.next()) {
-                // Perhatikan nama kolom sesuai database tbmakanan yang baru di-alter
                 int id = rs.getInt("product_id"); 
                 String name = rs.getString("name");
                 double price = rs.getDouble("price");
@@ -95,7 +87,6 @@ public class ProductController {
                 String category = rs.getString("category");
                 String imagePath = rs.getString("image_path");
                 
-                // Masukkan ke Constructor Product (Pastikan urutannya sesuai dengan Model kamu)
                 Product p = new Product(id, name, price, stock, category, imagePath);
                 
                 listProduct.add(p);
@@ -106,7 +97,6 @@ public class ProductController {
         return listProduct;
     }
     
-    // Controller/ProductController.java
 public List<Product> ambilByKategori(String kategori) {
      List<Product> list = new ArrayList<>();
     String sql = "SELECT * FROM tbmakanan WHERE UPPER(category) = UPPER(?)";
@@ -135,7 +125,6 @@ public List<Product> ambilByKategori(String kategori) {
     return list;
 }
 
-// Opsional: hanya yang stok > 0
 public List<Product> ambilByKategoriTersedia(String kategori) {
     List<Product> list = new ArrayList<>();
     String sql = "SELECT product_id, name, price, stock, category, image_path " +
@@ -200,7 +189,7 @@ public List<Product> ambilByKategoriTersedia(String kategori) {
         pst.setInt(3, qty);
 
         int updated = pst.executeUpdate();
-        return updated > 0;   // true = stok berhasil dikurangi
+        return updated > 0;  
 
     } catch (SQLException e) {
         System.err.println("Gagal kurangiStok: " + e.getMessage());

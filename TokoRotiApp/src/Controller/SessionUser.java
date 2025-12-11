@@ -1,11 +1,10 @@
 package Controller;
 
 public class SessionUser {
-    private static int userId;        // user_id dari tabel users
-    private static String username;   // username login
-    private static String namaUser;   // fullname / nama tampilan
+    private static int userId;        
+    private static String username;   
+    private static String namaUser;   
 
-    // dipakai setelah login sukses
     public static void set(int id, String user, String nama) {
         userId = id;
         username = user;
@@ -20,7 +19,7 @@ public class SessionUser {
         return username;
     }
 
-    // supaya kode lama yang pakai setNamaUser/getNamaUser masih aman
+
     public static void setNamaUser(String nama) {
         namaUser = nama;
     }

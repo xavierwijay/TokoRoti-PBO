@@ -28,39 +28,33 @@ public class KueKering extends javax.swing.JFrame {
      * Creates new form KueKering
      */
     public KueKering() {
-         initComponents(); // panggil GUI dari NetBeans
-        setupDynamicLayout(); // isi produk dari database
+         initComponents();
+        setupDynamicLayout();
 
     }
     
     private void setupDynamicLayout() {
-    // Ambil produk dari kategori KUE KERING (sesuaikan dengan isi tabelmu)
     java.util.List<Product> items = productController.ambilByKategori("KUE KERING");
 
-    // Panel coklat bagian bawah yang berisi judul "Kue Kering" dan card
     jPanel27.removeAll();
 
     java.awt.Color coklat = new java.awt.Color(209, 186, 155);
     jPanel27.setBackground(coklat);
     jPanel27.setLayout(new java.awt.BorderLayout());
 
-    // ================== TITLE "Kue Kering" ==================
     javax.swing.JPanel titlePanel = new javax.swing.JPanel();
     titlePanel.setOpaque(false);
     titlePanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(13, 0, 10, 0));
 
-    // pakai label existing dari NetBeans (jLabel68 = "Kue Kering")
     jLabel68.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     titlePanel.add(jLabel68);
 
     jPanel27.add(titlePanel, java.awt.BorderLayout.NORTH);
 
-    // ================== GRID PRODUK (4 kolom) ==================
     javax.swing.JPanel grid = new javax.swing.JPanel(new java.awt.GridLayout(0, 4, 5, 25));
     grid.setOpaque(false);
 
     for (Product p : items) {
-        // dibungkus panel transparan supaya ukuran card pas (tidak melebar)
         javax.swing.JPanel cardWrap = new javax.swing.JPanel();
         cardWrap.setOpaque(false);
         cardWrap.add(buatCardProduk(p));
@@ -68,10 +62,8 @@ public class KueKering extends javax.swing.JFrame {
         grid.add(cardWrap);
     }
 
-    // ================== WRAPPER: padding kiri & kanan ==================
     javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.BorderLayout());
     wrapper.setOpaque(false);
-    //                top, left, bottom, right
     wrapper.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 60, 20, 80));
    
     wrapper.add(grid, java.awt.BorderLayout.CENTER);
@@ -137,12 +129,10 @@ public class KueKering extends javax.swing.JFrame {
     middle.setLayout(new javax.swing.BoxLayout(middle, javax.swing.BoxLayout.Y_AXIS));
     middle.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 14, 4, 14));
 
-    // Nama (rata kiri)
     javax.swing.JLabel nama = new javax.swing.JLabel(p.getName());
     nama.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
     nama.setAlignmentX(0.0f);
 
-    // Harga (rata kiri)
     javax.swing.JLabel harga = new javax.swing.JLabel("Rp. " + formatRupiah(p.getPrice()));
     harga.setForeground(new java.awt.Color(158, 115, 52));
     harga.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
@@ -175,7 +165,6 @@ public class KueKering extends javax.swing.JFrame {
 
     card.add(middle, java.awt.BorderLayout.CENTER);
 
-    // ================== BAGIAN BAWAH : TOMBOL ==================
     javax.swing.JButton btn = new javax.swing.JButton("Tambahkan Pesanan");
     btn.setBackground(new java.awt.Color(130, 87, 87));
     btn.setForeground(java.awt.Color.WHITE);
@@ -184,7 +173,6 @@ public class KueKering extends javax.swing.JFrame {
     btn.addActionListener(e -> {
          int jumlah = (Integer) sp.getValue();
 
-        // 1. Jumlah harus > 0
         if (jumlah <= 0) {
             javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
             return;
@@ -192,7 +180,6 @@ public class KueKering extends javax.swing.JFrame {
 
         ProductController pc = new ProductController();
 
-        // 2. Ambil stok terbaru dari DB
         Model.Product current = pc.ambilById(p.getId());
         if (current == null) {
             javax.swing.JOptionPane.showMessageDialog(this,
@@ -200,7 +187,6 @@ public class KueKering extends javax.swing.JFrame {
             return;
         }
 
-        // 3. Cek stok cukup
         if (jumlah > current.getStock()) {
             javax.swing.JOptionPane.showMessageDialog(
                     this,
@@ -209,7 +195,6 @@ public class KueKering extends javax.swing.JFrame {
             return;
         }
 
-        // 4. Kurangi stok di DB (tidak boleh minus)
         boolean ok = pc.kurangiStok(current.getId(), jumlah);
         if (!ok) {
             javax.swing.JOptionPane.showMessageDialog(
@@ -219,15 +204,12 @@ public class KueKering extends javax.swing.JFrame {
             return;
         }
 
-        // 5. Tambah ke keranjang
         KeranjangController.getInstance().tambahItem(current, jumlah);
 
-        // 6. Ambil stok terbaru lagi & update label di UI
         Model.Product after = pc.ambilById(current.getId());
         if (after != null) {
             stokLabel.setText("Stok: " + after.getStock());
 
-            // kalau sudah habis, sembunyikan card dari katalog
             if (after.getStock() <= 0) {
                 card.setVisible(false);
             }
@@ -816,6 +798,11 @@ this.dispose();
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         // TODO add your handling code here:
+        View.Home hh = new View.Home();
+        hh.setVisible(true);
+        
+        this.dispose();
+        
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
@@ -832,11 +819,11 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(5, "Nastar Selai Keju", 40000.0, 0, "kue kering", "/View/nastar .png"); // ID & harga sesuaikan
+    Product p = new Product(5, "Nastar Selai Keju", 40000.0, 0, "kue kering", "/View/nastar .png");
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jNastar.setValue(0); // reset
+    jNastar.setValue(0);
     }//GEN-LAST:event_jButton25ActionPerformed
 
     private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
@@ -850,7 +837,7 @@ this.dispose();
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jCookies.setValue(0); // reset
+    jCookies.setValue(0);
     }//GEN-LAST:event_jButton26ActionPerformed
 
     private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
@@ -860,11 +847,11 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(7, "Putri Salju", 30000.0, 0, "kue kering", "/View/putri salju.png"); // ID & harga sesuaikan
+    Product p = new Product(7, "Putri Salju", 30000.0, 0, "kue kering", "/View/putri salju.png");
     KeranjangController.getInstance().tambahItem(p, jumlah);
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jSalju.setValue(0); // reset
+    jSalju.setValue(0);
     }//GEN-LAST:event_jButton27ActionPerformed
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
@@ -874,27 +861,23 @@ this.dispose();
         javax.swing.JOptionPane.showMessageDialog(this, "Jumlah harus > 0");
         return;
     }
-    Product p = new Product(8, "Kue Mawar", 30000.0, 0, "kue kering", "/View/kue mawar.png"); // ID & harga sesuaikan
-    KeranjangController.getInstance().tambahItem(p, jumlah);
+    Product p = new Product(8, "Kue Mawar", 30000.0, 0, "kue kering", "/View/kue mawar.png");
 
     javax.swing.JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jMawar.setValue(0); // reset
+    jMawar.setValue(0);
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void blistpesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blistpesananActionPerformed
         // TODO add your handling code here:
-            // 1. LOAD DULU dari database untuk user yang sedang login
             Controller.KeranjangController.getInstance().loadFromDatabaseForCurrentUser();
 
-            // 2. Kalau tetap kosong setelah di-load, baru kasih pesan
             if (Controller.KeranjangController.getInstance().getItems().isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Keranjang masih kosong.");
                 return;
             }
 
-            // 3. Kalau ada isinya, buka jendela keranjang
             new View.KeranjangPemesanan().setVisible(true);
-            this.dispose();    // kalau mau jendela Home tertutup
+            this.dispose();
     }//GEN-LAST:event_blistpesananActionPerformed
 
     /**

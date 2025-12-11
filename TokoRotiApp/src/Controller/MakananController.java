@@ -21,7 +21,6 @@ public class MakananController {
         this.stm = Koneksi.configDB().createStatement();
     }
 
-        //method 1: membuat model / design tabel virtual
         public DefaultTableModel createTable(){
             this.dtm.addColumn("ID Makanan");
             this.dtm.addColumn("Nama Makanan");
@@ -34,7 +33,6 @@ public class MakananController {
         
 public boolean updateStock(int id, int jumlah) throws SQLException {
 
-    // Ambil stok dari DB
     String sqlGet = "SELECT stock FROM tbmakanan WHERE product_id = " + id;
     ResultSet rs = this.stm.executeQuery(sqlGet);
 
@@ -43,22 +41,20 @@ public boolean updateStock(int id, int jumlah) throws SQLException {
         stokSekarang = rs.getInt("stock");
     }
 
-    // Validasi stok
     if (jumlah > stokSekarang) {
         javax.swing.JOptionPane.showMessageDialog(null,
              "Stock tidak cukup! Stok tersedia: " + stokSekarang);
-        return false;  // ⛔ GAGAL
+        return false;
     }
 
     int stokBaru = stokSekarang - jumlah;
 
-    // Update stok
     String sqlUpdate = "UPDATE tbmakanan SET stock = " + stokBaru +
                        " WHERE product_id = " + id;
 
     stm.executeUpdate(sqlUpdate);
 
-    return true; // ✔️ BERHASIL
+    return true;
 }
 
      
@@ -67,13 +63,10 @@ public boolean updateStock(int id, int jumlah) throws SQLException {
                 this.dtm.getDataVector().removeAllElements();
                 this.dtm.fireTableDataChanged();
                 
-                // query
                 this.sql = "SELECT * FROM tbmakanan";
                 
-                //jalankan
                 this.res = this.stm.executeQuery(sql);
                 
-                //masukkan
                 while(res.next()){
                     Object[] obj = new Object[5];
                     obj[0] = res.getString("product_id");

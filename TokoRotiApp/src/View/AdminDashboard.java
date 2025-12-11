@@ -184,7 +184,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void bttnInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttnInputActionPerformed
         // TODO add your handling code here:
-        InputMenu im = new InputMenu();    // biar muncul di tengah
+        InputMenu im = new InputMenu();    
         im.setVisible(true);
 
     this.dispose();                    

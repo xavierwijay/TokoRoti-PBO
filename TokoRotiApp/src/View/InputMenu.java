@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.nio.file.Files;               //untuk copy file image
 import java.nio.file.StandardCopyOption;  //untuk copy file image
 import java.io.IOException;
-import java.io.File;        //utuk mengenali objek file di komputerr
+import java.io.File;        //utuk input otput file
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -37,29 +37,24 @@ public class InputMenu extends javax.swing.JFrame {
     }
     
     private void loadData() {
-        // 1. Judul Kolom (Tambahkan "Image Path")
     String[] judul = {"ID", "Nama Roti", "Harga", "Stok", "Kategori", "Image Path"};
     javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel(null, judul);
     
-    // 2. Ambil data dari Controller
     java.util.List<Model.Product> listRoti = controller.ambilSemuaData();
     
-    // 3. Masukkan ke Tabel
     for (Model.Product p : listRoti) {
-        Object[] row = new Object[6]; // Ubah ukuran array jadi 6
+        Object[] row = new Object[6];
         row[0] = p.getId();
         row[1] = p.getName();
         row[2] = p.getPrice();
         row[3] = p.getStock();
         row[4] = p.getCategory();
-        row[5] = p.getImagePath(); // Ambil path gambar dari objek Product
+        row[5] = p.getImagePath();
         model.addRow(row);
     }
     
-    // 4. Set ke GUI
     tblRoti.setModel(model);
     
-    //sembunyikan kolom Image Path agar tabel tidak berantakan
     tblRoti.getColumnModel().getColumn(5).setMinWidth(0);
     tblRoti.getColumnModel().getColumn(5).setMaxWidth(0);
     tblRoti.getColumnModel().getColumn(5).setWidth(0);
@@ -342,14 +337,12 @@ public class InputMenu extends javax.swing.JFrame {
 
     private void btnGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGambarActionPerformed
         JFileChooser jc = new JFileChooser();
-        // Filter biar cuma bisa pilih gambar
         jc.setFileFilter(new FileNameExtensionFilter("Gambar JPG/PNG", "jpg", "jpeg", "png"));
         
         int respon = jc.showOpenDialog(this);
         if (respon == JFileChooser.APPROVE_OPTION) {
             fileGambarTerpilih = jc.getSelectedFile();
             
-            // Tampilkan preview di label TempatFoto
             aturGambar(TempatFoto, fileGambarTerpilih); 
         }
     }//GEN-LAST:event_btnGambarActionPerformed
@@ -360,7 +353,7 @@ public class InputMenu extends javax.swing.JFrame {
             if (img != null) {
                 Image scaled = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
                 label.setIcon(new ImageIcon(scaled));
-                label.setText(""); // Hapus teks "jLabel..."
+                label.setText("");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -375,30 +368,22 @@ public class InputMenu extends javax.swing.JFrame {
         int stok = Integer.parseInt(txtStok.getText());
         String kategori = cbKategori.getSelectedItem().toString();
 
-        // --- LOGIKA UPLOAD GAMBAR BARU (COPY KE src/View) ---
-        String pathGambar = "default.png"; // Default kalau tidak pilih gambar
+        String pathGambar = "default.png";
 
         if (fileGambarTerpilih != null) {
             try {
-                // 1. Bikin nama unik pakai waktu sekarang (biar tidak bentrok)
                 String namaAsli = fileGambarTerpilih.getName();
-                // Cek ekstensi (jaga-jaga kalau file tidak ada titiknya)
                 String ekstensi = namaAsli.contains(".") ? namaAsli.substring(namaAsli.lastIndexOf(".")) : ".png";
                 String namaFileGambar = "IMG_" + System.currentTimeMillis() + ekstensi;
                 
-                // 2. Tentukan Folder Tujuan: src/View/
-                // "src/View" ini relatif terhadap folder project TokoRotiApp
                 File folderTujuan = new File("src/View"); 
                 if (!folderTujuan.exists()) {
-                    folderTujuan.mkdirs(); // Bikin folder kalau belum ada
+                    folderTujuan.mkdirs(); 
                 }
                 
-                // 3. Proses Copy
                 File fileTujuan = new File(folderTujuan, namaFileGambar);
                 Files.copy(fileGambarTerpilih.toPath(), fileTujuan.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 
-                // 4. Update variabel pathGambar untuk disimpan ke Database
-                // Kita simpan Path Absolut dari file yang SUDAH DI-COPY
                 pathGambar = fileTujuan.getAbsolutePath().replace("\\", "/");
                 
                 System.out.println("Sukses copy gambar ke: " + pathGambar);
@@ -406,24 +391,21 @@ public class InputMenu extends javax.swing.JFrame {
             } catch (IOException ioEx) {
                 System.err.println("Gagal copy gambar: " + ioEx.getMessage());
                 javax.swing.JOptionPane.showMessageDialog(this, "Gagal meng-upload gambar!");
-                return; // Berhenti jika gagal copy
+                return;
             }
         } else {
-            // Validasi jika user lupa pilih gambar
             int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
                 "Anda belum memilih gambar. Lanjut tanpa gambar?", 
                 "Peringatan", javax.swing.JOptionPane.YES_NO_OPTION);
             if (confirm == javax.swing.JOptionPane.NO_OPTION) return;
         }
-        // -----------------------------------------------------
 
-        // Simpan ke Database
         Model.Product rotiBaru = new Model.Product(0, nama, harga, stok, kategori, pathGambar);
         controller.tambahData(rotiBaru);
         
-        loadData(); // Refresh tabel
+        loadData();
         
-        // Bersihkan Form
+
         txtNama.setText("");
         txtHarga.setText("");
         txtStok.setText("");
@@ -439,7 +421,6 @@ public class InputMenu extends javax.swing.JFrame {
     }
     }
     
-    // Method kecil buat bersih-bersih form
     private void bersihkanInput() {
         txtNama.setText("");
         txtHarga.setText("");
@@ -448,16 +429,13 @@ public class InputMenu extends javax.swing.JFrame {
 
     private void btnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeluarActionPerformed
         // TODO add your handling code here:
-        // 1. Buka Jendela Dashboard Admin
         new View.AdminDashboard().setVisible(true);
         
-        // 2. Tutup/Hancurkan Jendela InputMenu ini biar gak numpuk
         this.dispose();
     }//GEN-LAST:event_btnKeluarActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        // 1. Cek apakah user sudah pilih baris di tabel?
         int baris = tblRoti.getSelectedRow();
         
         if (baris == -1) {
@@ -465,7 +443,6 @@ public class InputMenu extends javax.swing.JFrame {
             return;
         }
 
-        // 2. Munculkan Pop-up Konfirmasi (Biar gak salah pencet)
         int konfirmasi = javax.swing.JOptionPane.showConfirmDialog(
             this, 
             "Yakin mau menghapus roti ini?", 
@@ -473,17 +450,13 @@ public class InputMenu extends javax.swing.JFrame {
             javax.swing.JOptionPane.YES_NO_OPTION
         );
 
-        // 3. Kalau user pilih YES, baru dieksekusi
         if (konfirmasi == javax.swing.JOptionPane.YES_OPTION) {
             try {
-                // Ambil ID dari kolom ke-0
                 String idString = tblRoti.getValueAt(baris, 0).toString();
                 int id = Integer.parseInt(idString);
                 
-                // Panggil Controller untuk hapus
                 controller.hapusData(id);
                 
-                // Refresh Tabel & Bersihkan Form
                 loadData();
                 txtNama.setText("");
                 txtHarga.setText("");
@@ -501,26 +474,21 @@ public class InputMenu extends javax.swing.JFrame {
         int baris = tblRoti.getSelectedRow();
     
     if (baris != -1) {
-        // 1. Ambil data teks dan masukkan ke form input
         txtNama.setText(tblRoti.getValueAt(baris, 1).toString());
         txtHarga.setText(tblRoti.getValueAt(baris, 2).toString());
         txtStok.setText(tblRoti.getValueAt(baris, 3).toString());
         cbKategori.setSelectedItem(tblRoti.getValueAt(baris, 4).toString());
         
-        // 2. Ambil Path Gambar dari kolom ke-5
         Object imagePathObj = tblRoti.getValueAt(baris, 5);
         
-        // 3. Tampilkan Gambar di Label
         if (imagePathObj != null) {
             String path = imagePathObj.toString();
             
-            // Cek validasi path
             if (!path.isEmpty() && !path.equals("null")) {
                 java.io.File f = new java.io.File(path);
                 if (f.exists()) {
-                    // Panggil method helper untuk menampilkan gambar
                     TempatFoto(TempatFoto, f);
-                    fileGambarTerpilih = f; // Simpan ke variabel global agar siap diedit
+                    fileGambarTerpilih = f; 
                 } else {
                     TempatFoto.setIcon(null);
                     TempatFoto.setText("File Tidak Ditemukan");
@@ -537,50 +505,37 @@ public class InputMenu extends javax.swing.JFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
-        // 1. CEK: Apakah user sudah klik salah satu baris di tabel?
         int baris = tblRoti.getSelectedRow();
         
         if (baris == -1) {
-            // Kalau belum pilih, marahin (kasih peringatan)
             javax.swing.JOptionPane.showMessageDialog(this, "Pilih dulu roti di tabel yang mau diedit!");
             return;
         }
 
         try {
-            // 2. AMBIL ID DARI TABEL (KUNCI UTAMA)
-            // Kita wajib tahu ID roti yang mau diedit. 
-            // Asumsinya ID ada di kolom ke-0 (Paling kiri).
             String idString = tblRoti.getValueAt(baris, 0).toString();
             int id = Integer.parseInt(idString);
             
-            // 3. AMBIL DATA BARU DARI KOTAK INPUT
             String nama = txtNama.getText();
             double harga = Double.parseDouble(txtHarga.getText());
             int stok = Integer.parseInt(txtStok.getText());
             String kategori = cbKategori.getSelectedItem().toString();
 
-            // Validasi: Jangan biarkan nama kosong
             if (nama.isEmpty()) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Nama roti tidak boleh kosong!");
                 return;
             }
 
-            // 4. BUNGKUS DATA JADI OBJEK PRODUCT
-            // (ID Lama + Data Baru)
             Model.Product rotiUpdate = new Model.Product(id, nama, harga, stok, kategori, "");
             
-            // 5. SURUH CONTROLLER UPDATE KE DATABASE
             controller.editData(rotiUpdate);
             
-            // 6. REFRESH TABEL (Biar perubahan langsung muncul)
             loadData(); 
             
-            // 7. BERSIHKAN FORM
             txtNama.setText("");
             txtHarga.setText("");
             txtStok.setText("");
             
-            // Kasih kabar sukses
             javax.swing.JOptionPane.showMessageDialog(this, "Data Berhasil Diubah!");
             
         } catch (NumberFormatException e) {

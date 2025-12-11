@@ -7,15 +7,11 @@ public class TesKoneksi {
         try {
             Connection c = Koneksi.configDB();
             if (c != null) {
-                System.out.println("---------------------------------------------");
-                System.out.println("✅ MANTAP! KONEKSI KE DATABASE BERHASIL!");
-                System.out.println("---------------------------------------------");
+                System.out.println("konek!!!!");
             }
         } catch (Exception e) {
-            System.out.println("---------------------------------------------");
-            System.out.println("❌ WADUH GAGAL! Cek errornya di bawah ini:");
+            System.out.println("belum connect");
             System.err.println(e.getMessage());
-            System.out.println("---------------------------------------------");
         }
     }
 }

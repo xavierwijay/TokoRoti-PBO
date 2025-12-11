@@ -19,7 +19,6 @@ public class KasirController {
 
     private static String esc(String s) { return s == null ? "" : s.replace("'", "''").trim(); }
 
-    // KASIR: username + password, role=cashier
     public boolean cekLogin(String un, String pw) {
         Kasir k = new Kasir();
         k.setUsername(un);

@@ -28,32 +28,28 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     
     public KueUlangTahun() {
-        initComponents();  // panggil komponen bawaan NetBeans
-        setupDynamicLayout(); // isi panel produk (pnlDynamic)
+        initComponents();  
+        setupDynamicLayout();
     }
     
     
 
     private void setupDynamicLayout() {
-        // Ambil data produk dari kategori KUE ULANG TAHUN
         java.util.List<Model.Product> items =productController.ambilByKategori("KUE ULANG TAHUN");
 
-        // Bersihkan isi lama panel
         pnlDynamic.removeAll();
 
-        // Warna latar belakang
         java.awt.Color coklat = new java.awt.Color(209, 186, 155);
         pnlDynamic.setBackground(coklat);
         pnlDynamic.setLayout(new java.awt.BorderLayout());
 
-        // === GRID PRODUK ===
         javax.swing.JPanel grid = new javax.swing.JPanel(new java.awt.GridLayout(0, 4, 25, 25));
         grid.setOpaque(false);
         for (Model.Product p : items) {
             grid.add(buatCardProduk(p));
         }
 
-        // === PEMBUNGKUS SCROLL ===
+       
         javax.swing.JPanel wrapper = new javax.swing.JPanel(new java.awt.BorderLayout());
         wrapper.setOpaque(false);
         wrapper.setBorder(
@@ -61,7 +57,7 @@ public class KueUlangTahun extends javax.swing.JFrame {
         );
         wrapper.add(grid, java.awt.BorderLayout.CENTER);
 
-        // === SCROLLPANE ===
+ 
         javax.swing.JScrollPane scroll = new javax.swing.JScrollPane(wrapper);
         scroll.setBorder(null);
         scroll.setHorizontalScrollBarPolicy(
@@ -74,18 +70,14 @@ public class KueUlangTahun extends javax.swing.JFrame {
         scroll.getViewport().setBackground(coklat);
         scroll.setBackground(coklat);
 
-        // Tambahkan scroll ke panel dinamis
         pnlDynamic.add(scroll, java.awt.BorderLayout.CENTER);
 
-        // Batasi tinggi supaya tidak nutup tulisan atas
         pnlDynamic.setPreferredSize(new java.awt.Dimension(1000, 480));
 
-        // Refresh tampilan
         pnlDynamic.revalidate();
         pnlDynamic.repaint();
     }
 
-    //  RESOLVER GAMBAR
     private java.io.File resolveImageFile(String imagePath) {
         if (imagePath == null || imagePath.isBlank()) return null;
 
@@ -107,7 +99,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
     }
 
     
-    //  CARD PRODUK
 
     private javax.swing.JPanel buatCardProduk(Model.Product p) {
         javax.swing.JPanel card = new javax.swing.JPanel(new java.awt.BorderLayout());
@@ -115,7 +106,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
         card.setPreferredSize(new java.awt.Dimension(210, 300));
         card.setMaximumSize(new java.awt.Dimension(210, 300));
 
-        // --------- ATAS: GAMBAR ----------
         javax.swing.JLabel img = new javax.swing.JLabel();
         img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         img.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,7 +137,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
         imgWrap.add(img, java.awt.BorderLayout.CENTER);
         card.add(imgWrap, java.awt.BorderLayout.NORTH);
 
-        // --------- TENGAH: NAMA, HARGA, JUMLAH ----------
         javax.swing.JPanel middle = new javax.swing.JPanel();
         middle.setOpaque(false);
         middle.setLayout(new javax.swing.BoxLayout(middle, javax.swing.BoxLayout.Y_AXIS));
@@ -189,7 +178,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
         card.add(middle, java.awt.BorderLayout.CENTER);
 
-        // --------- BAWAH: TOMBOL ----------
         javax.swing.JButton btn = new javax.swing.JButton("Tambahkan Pesanan");
         btn.setBackground(new java.awt.Color(130, 87, 87));
         btn.setForeground(java.awt.Color.WHITE);
@@ -204,7 +192,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     ProductController pc = new ProductController();
 
-    // 1. Ambil stok TERBARU dari DB
     Model.Product current = pc.ambilById(p.getId());
     if (current == null) {
         JOptionPane.showMessageDialog(this, "Produk tidak ditemukan di database");
@@ -213,7 +200,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     int stokSekarang = current.getStock();
 
-    // 2. Kalau sudah habis, jangan bisa dibeli
     if (stokSekarang <= 0) {
         JOptionPane.showMessageDialog(this, "Stok sudah habis");
         stokLabel.setText("Stok: 0 (Habis)");
@@ -222,7 +208,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
         return;
     }
 
-    // 3. Cek input user <= stok
     if (jumlah > stokSekarang) {
         JOptionPane.showMessageDialog(
             this,
@@ -231,12 +216,10 @@ public class KueUlangTahun extends javax.swing.JFrame {
         return;
     }
 
-    // 4. Tambah ke keranjang
     KeranjangController.getInstance().tambahItem(current, jumlah);
 
     boolean ok = pc.kurangiStok(current.getId(), jumlah);
     if (!ok) {
-        // stok berubah di menit terakhir, kasih info
         JOptionPane.showMessageDialog(this, "Stok berubah, silakan coba lagi");
         Model.Product after = pc.ambilById(current.getId());
         if (after != null) {
@@ -245,18 +228,15 @@ public class KueUlangTahun extends javax.swing.JFrame {
         return;
     }
 
-    // 6. Ambil stok setelah dikurangi & update label
     Model.Product after = pc.ambilById(current.getId());
     if (after != null) {
         int s = after.getStock();
         stokLabel.setText("Stok: " + s);
         if (s <= 0) {
-            // kalau habis: disable, dan refresh katalog supaya kartu hilang
             stokLabel.setText("Stok: 0 (Habis)");
             sp.setEnabled(false);
             btn.setEnabled(false);
 
-            // refresh seluruh katalog supaya produk 0 stok hilang
             SwingUtilities.invokeLater(() -> setupDynamicLayout());
         }
     }
@@ -276,9 +256,6 @@ public class KueUlangTahun extends javax.swing.JFrame {
         return card;
     }
 
-    // =========================
-    //  FORMAT RUPIAH
-    // =========================
     private static String formatRupiah(double v) {
         java.text.DecimalFormat df = new java.text.DecimalFormat("#,###");
         return df.format(v).replace(",", ".");
@@ -893,6 +870,10 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         // TODO add your handling code here:
+        View.Home hh = new View.Home();
+        hh.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -954,14 +935,12 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     int stokTersedia = p.getStock();
 
-    // CEK STOK
     if (jumlah > stokTersedia) {
         JOptionPane.showMessageDialog(this,
                 "Stok tidak cukup!\nStok tersedia: " + stokTersedia);
         return;
     }
 
-    // MASUKKAN KE KERANJANG
     KeranjangController.getInstance().tambahItem(p, jumlah);
     
      productController.kurangiStok(p.getId(), jumlah);
@@ -988,20 +967,18 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     int stokTersedia = p.getStock();
 
-    // CEK STOK
     if (jumlah > stokTersedia) {
         JOptionPane.showMessageDialog(this,
                 "Stok tidak cukup!\nStok tersedia: " + stokTersedia);
         return;
     }
 
-    // MASUKKAN KE KERANJANG
     KeranjangController.getInstance().tambahItem(p, jumlah);
     
      productController.kurangiStok(p.getId(), jumlah);
 
     JOptionPane.showMessageDialog(this, "Ditambahkan ke keranjang");
-    jKucs.setValue(0); // reset
+    jKucs.setValue(0);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -1022,14 +999,12 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     int stokTersedia = p.getStock();
 
-    // CEK STOK
     if (jumlah > stokTersedia) {
         JOptionPane.showMessageDialog(this,
                 "Stok tidak cukup!\nStok tersedia: " + stokTersedia);
         return;
     }
 
-    // MASUKKAN KE KERANJANG
     KeranjangController.getInstance().tambahItem(p, jumlah);
     
      productController.kurangiStok(p.getId(), jumlah);
@@ -1040,18 +1015,15 @@ public class KueUlangTahun extends javax.swing.JFrame {
 
     private void blistpesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_blistpesananActionPerformed
         // TODO add your handling code here:
-        // 1. LOAD DULU dari database untuk user yang sedang login
         Controller.KeranjangController.getInstance().loadFromDatabaseForCurrentUser();
 
-        // 2. Kalau tetap kosong setelah di-load, baru kasih pesan
         if (Controller.KeranjangController.getInstance().getItems().isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Keranjang masih kosong.");
             return;
         }
 
-        // 3. Kalau ada isinya, buka jendela keranjang
         new View.KeranjangPemesanan().setVisible(true);
-        this.dispose();    // kalau mau jendela Home tertutup
+        this.dispose();   
     }//GEN-LAST:event_blistpesananActionPerformed
 
     /**

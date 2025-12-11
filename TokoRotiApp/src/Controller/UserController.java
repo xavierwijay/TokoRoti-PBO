@@ -22,7 +22,6 @@ public class UserController {
 
     private static String esc(String s) { return s == null ? "" : s.replace("'", "''").trim(); }
 
-    // USER: username + password, role=customer
     public boolean cekLogin(String un, String pw) {
         User u = new User();
         u.setUsername(un);
@@ -51,15 +50,15 @@ public class UserController {
     try (PreparedStatement pst = conn.prepareStatement(sql)) {
         pst.setString(1, username.trim().toLowerCase());
         try (ResultSet rs = pst.executeQuery()) {
-            return rs.next(); // true = sudah ada
+            return rs.next(); 
         }
     } catch (SQLException e) {
         System.out.println("Cek username gagal: " + e.getMessage());
-        return true; // anggap sudah ada supaya aman
+        return true; 
     }
 }
 
-        // Cek apakah fullname sudah dipakai customer lain (khusus role customer)
+        
     public boolean cekFullname(String fullname) {
         String sql = "SELECT 1 FROM users WHERE fullname = ? AND role = 'customer' LIMIT 1";
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
@@ -69,17 +68,16 @@ public class UserController {
         }
     } catch (SQLException e) {
         System.out.println("Cek fullname gagal: " + e.getMessage());
-        return true; // anggap sudah ada supaya aman
+        return true; 
     }
 }
 
-// Buat akun user (role otomatis 'customer')
     public boolean buatAkunUser(String username, String fullname, String password) {
         String sql = "INSERT INTO users (username, password, fullname, role) "
                + "VALUES (?, ?, ?, 'customer')";
         try (PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, username.trim().toLowerCase());
-            pst.setString(2, password);           // NOTE: masih plaintext; sebaiknya pakai hash (BCrypt)
+            pst.setString(2, password);           //bisa di hash pake bcrypt tpi mboh sek
             pst.setString(3, fullname.trim());
             return pst.executeUpdate() == 1;
     } catch (SQLException e) {
@@ -113,7 +111,6 @@ public class UserController {
         return model;
     }
 
-    // Insert akun kasir baru
     public boolean buatAkunKasir(String username, String fullname, String password) {
         String sql = "INSERT INTO users (username, password, fullname, role) "
                    + "VALUES (?, ?, ?, 'cashier')";
@@ -128,7 +125,6 @@ public class UserController {
         }
     }
 
-    // Update data kasir
     public boolean updateKasir(int userId, String username, String fullname, String password) {
         String sql = "UPDATE users SET username = ?, password = ?, fullname = ? "
                    + "WHERE user_id = ? AND role = 'cashier'";
@@ -144,7 +140,6 @@ public class UserController {
         }
     }
 
-    // Hapus kasir
     public boolean deleteKasir(int userId) {
         String sql = "DELETE FROM users WHERE user_id = ? AND role = 'cashier'";
         try (PreparedStatement pst = conn.prepareStatement(sql)) {

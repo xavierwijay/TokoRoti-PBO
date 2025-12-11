@@ -218,11 +218,15 @@ public class BuatAkun extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        View.Login VL = new View.Login();
+        VL.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    String username  = txtBnama.getText().trim().toLowerCase();   // konsisten: username huruf kecil
+    String username  = txtBnama.getText().trim().toLowerCase();   
     String fullname  = txtBnamalengkap.getText().trim();
     String password  = new String(txtBsandi.getPassword());
 
@@ -234,19 +238,16 @@ public class BuatAkun extends javax.swing.JFrame {
 
     Controller.UserController uc = new Controller.UserController();
 
-    // Cek unik username (untuk semua user)
     if (uc.cekUsername(username)) {
         javax.swing.JOptionPane.showMessageDialog(this, "Username sudah dipakai.");
         return;
     }
 
-    // Cek unik fullname khusus customer (sesuai implementasi uc.cekFullname)
     if (uc.cekFullname(fullname)) {
         javax.swing.JOptionPane.showMessageDialog(this, "Nama lengkap sudah dipakai pelanggan lain.");
         return;
     }
 
-    // Simpan akun (role otomatis 'customer' di UserController.buatAkunUser)
     boolean ok = uc.buatAkunUser(username, fullname, password);
     if (ok) {
         javax.swing.JOptionPane.showMessageDialog(this, "Akun berhasil dibuat. Silakan login.");

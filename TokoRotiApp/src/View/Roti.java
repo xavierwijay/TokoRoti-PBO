@@ -787,6 +787,10 @@ private static String formatRupiah(double v) {
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         // TODO add your handling code here:
+        View.Home vh = new View.Home();
+        vh.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_jButton36ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
